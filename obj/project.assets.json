@@ -155,11 +155,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Wpf\\FYP\\FYP.csproj",
+      "projectUniqueName": "D:\\FYP-Desktop-App\\FYP.csproj",
       "projectName": "FYP",
-      "projectPath": "D:\\Wpf\\FYP\\FYP.csproj",
+      "projectPath": "D:\\FYP-Desktop-App\\FYP.csproj",
       "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-      "outputPath": "D:\\Wpf\\FYP\\obj\\",
+      "outputPath": "D:\\FYP-Desktop-App\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
