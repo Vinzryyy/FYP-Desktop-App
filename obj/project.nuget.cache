@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Fu7AkiHVvYQ=",
+  "dgSpecHash": "4BFm0kZJuRc=",
   "success": true,
-  "projectFilePath": "D:\\FYP-Desktop-App\\FYP.csproj",
+  "projectFilePath": "C:\\Users\\User\\source\\repos\\Vinzryyy\\FYP-Desktop-App\\FYP.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\User\\.nuget\\packages\\materialdesigncolors\\5.2.1\\materialdesigncolors.5.2.1.nupkg.sha512",
     "C:\\Users\\User\\.nuget\\packages\\materialdesignthemes\\5.2.1\\materialdesignthemes.5.2.1.nupkg.sha512",

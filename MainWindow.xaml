@@ -27,66 +27,193 @@
             <StackPanel Grid.Column="0">
                 <Image Source="controller_placeholder.png" Stretch="Uniform"/>
                 <ListBox>
-                    <ListBoxItem Content="Square: X Button"/>
+                    <ListBoxItem Content="Controller 1 " Selected="ListBoxItem_Selected"/>
                     <!-- Add more items as needed -->
                 </ListBox>
 
             </StackPanel>
 
             <!-- Right Side: Tabs and Controls -->
-            <TabControl Grid.Column="1">
-                <TabItem Header="Controls">
+            <TabControl Grid.Column="1" SelectionChanged="TabControl_SelectionChanged">
+                <TabItem Header="Profiles">
                     <!-- Nested Tabs -->
                     <TabControl Margin="-4,0,4,0">
                         <TabItem Header="Axis Config">
                             <ScrollViewer VerticalScrollBarVisibility="Auto">
                                 <StackPanel Margin="10" Width="441">
-                                    <TextBlock Text="Output Mode" FontWeight="Bold"/>
+                                    <!-- Left Stick -->
+                                    <TextBlock Text="Left Stick" FontWeight="Bold" FontSize="14" Margin="0,10,0,5"/>
+
+                                    <TextBlock Text="Dead Zone (X):"/>
+                                    <Slider Minimum="0" Maximum="1" Value="0.08" Width="200" TickFrequency="0.01" IsSnapToTickEnabled="True"/>
+
+                                    <TextBlock Text="Dead Zone (Y):" Margin="0,5,0,0"/>
+                                    <Slider Minimum="0" Maximum="1" Value="0.08" Width="200" TickFrequency="0.01" IsSnapToTickEnabled="True"/>
+
+                                    <TextBlock Text="Sensitivity:" Margin="0,5,0,0"/>
+                                    <Slider Minimum="0.1" Maximum="2" Value="1.0" Width="200" TickFrequency="0.1" IsSnapToTickEnabled="True"/>
+
+                                    <TextBlock Text="Vertical Scale:" Margin="0,5,0,0"/>
+                                    <Slider Minimum="0.1" Maximum="2" Value="1.0" Width="200" TickFrequency="0.1" IsSnapToTickEnabled="True"/>
+
+                                    <!-- Right Stick -->
+                                    <TextBlock Text="Right Stick" FontWeight="Bold" FontSize="14" Margin="20,20,0,5"/>
+
+                                    <TextBlock Text="Dead Zone (X):"/>
+                                    <Slider Minimum="0" Maximum="1" Value="0.08" Width="200" TickFrequency="0.01" IsSnapToTickEnabled="True"/>
+
+                                    <TextBlock Text="Dead Zone (Y):" Margin="0,5,0,0"/>
+                                    <Slider Minimum="0" Maximum="1" Value="0.08" Width="200" TickFrequency="0.01" IsSnapToTickEnabled="True"/>
+
+                                    <TextBlock Text="Sensitivity:" Margin="0,5,0,0"/>
+                                    <Slider Minimum="0.1" Maximum="2" Value="1.0" Width="200" TickFrequency="0.1" IsSnapToTickEnabled="True"/>
+
+                                    <!-- Triggers -->
+                                    <TextBlock Text="Triggers (L2/R2)" FontWeight="Bold" FontSize="14" Margin="20,20,0,5"/>
+                                    <TextBlock Text="Dead Zone:"/>
+                                    <Slider Minimum="0" Maximum="1" Value="0.05" Width="200" TickFrequency="0.01" IsSnapToTickEnabled="True"/>
+
+                                    <TextBlock Text="Max Output:" Margin="0,5,0,0"/>
+                                    <Slider Minimum="0.1" Maximum="1" Value="1.0" Width="200" TickFrequency="0.01" IsSnapToTickEnabled="True"/>
+
+                                    <!-- Output Curve -->
+                                    <TextBlock Text="Output Curve:" FontWeight="Bold" Margin="20,20,0,5"/>
                                     <ComboBox Width="200">
-                                        <ComboBoxItem Content="Control"/>
-                                    </ComboBox>
-
-                                    <TextBlock Text="Dead Zone Type" Margin="0,10,0,0"/>
-                                    <ComboBox Width="200">
-                                        <ComboBoxItem Content="Radial"/>
-                                    </ComboBox>
-
-                                    <TextBlock Text="Dead Zone:" Margin="0,10,0,0"/>
-                                    <TextBox Width="100" Text="0.08"/>
-
-                                    <TextBlock Text="Max Zone:" Margin="0,10,0,0"/>
-                                    <TextBox Width="100" Text="1.00"/>
-
-                                    <TextBlock Text="Anti-Dead Zone:" Margin="0,10,0,0"/>
-                                    <TextBox Width="100"/>
-
-                                    <TextBlock Text="Max Output:" Margin="0,10,0,0"/>
-                                    <TextBox Width="100" Text="1.00"/>
-
-                                    <TextBlock Text="Vertical Scale:" Margin="0,10,0,0"/>
-                                    <TextBox Width="100" Text="1.00"/>
-
-                                    <TextBlock Text="Sensitivity:" Margin="0,10,0,0"/>
-                                    <TextBox Width="100" Text="1.00"/>
-
-                                    <TextBlock Text="Output Curve:" Margin="0,10,0,0"/>
-                                    <ComboBox Width="200">
-                                        <ComboBoxItem Content="Linear"/>
+                                        <ComboBoxItem Content="Linear" IsSelected="True"/>
                                         <ComboBoxItem Content="Exponential"/>
                                         <ComboBoxItem Content="EaseInOut"/>
+                                        <ComboBoxItem Content="Custom"/>
                                     </ComboBox>
+
+                                    <!-- Anti Dead Zone -->
+                                    <TextBlock Text="Anti Dead Zone:" Margin="0,10,0,0"/>
+                                    <Slider Minimum="0" Maximum="0.5" Value="0" Width="200" TickFrequency="0.01" IsSnapToTickEnabled="True"/>
                                 </StackPanel>
                             </ScrollViewer>
                         </TabItem>
 
                         <TabItem Header="Lightbar"/>
+
                         <TabItem Header="Touchpad"/>
                         <TabItem Header="Gyro"/>
                         <TabItem Header="Other"/>
                     </TabControl>
                 </TabItem>
-                <TabItem Header="Special Actions"/>
-                <TabItem Header="Controller Readings"/>
+                <TabItem Header="Controller">
+                    <Grid Margin="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <!-- Table Headers -->
+                        <Grid Grid.Row="0" Margin="0,0,0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="30"/>
+                                <!-- # -->
+                                <ColumnDefinition Width="150"/>
+                                <!-- ID -->
+                                <ColumnDefinition Width="80"/>
+                                <!-- Status -->
+                                <ColumnDefinition Width="100"/>
+                                <!-- Link Profile/ID -->
+                                <ColumnDefinition Width="60"/>
+                                <!-- Edit -->
+
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Text="#" FontWeight="Bold"/>
+                            <TextBlock Text="ID" Grid.Column="1" FontWeight="Bold"/>
+                            <TextBlock Text="Status" Grid.Column="2" FontWeight="Bold"/>
+                            <TextBlock Text="Link" Grid.Column="4" FontWeight="Bold"/>
+                            <TextBlock Text="Edit" Grid.Column="3" FontWeight="Bold" Margin="35,0,5,0"/>
+
+                        </Grid>
+
+                        <!-- Table Rows -->
+                        <ItemsControl Grid.Row="1">
+                            <ItemsControl.Items>
+                                <!-- Row 1 -->
+                                <Grid Margin="0,2">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="30"/>
+                                        <ColumnDefinition Width="150"/>
+                                        <ColumnDefinition Width="80"/>
+                                        <ColumnDefinition Width="100"/>
+                                        <ColumnDefinition Width="60"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock Text="1"/>
+                                    <TextBlock Text="#1" Grid.Column="1"/>
+                                    <TextBlock Text="🔗" Grid.Column="2"/>
+                                    <CheckBox Grid.Column="3" IsChecked="True" Grid.ColumnSpan="2" Margin="31,0,0,0" RenderTransformOrigin="0.303,0.601"/>
+                                    <Button Grid.Column="3" Content="Edit" Margin="96,-2,0,2" Grid.ColumnSpan="2"/>
+                                </Grid>
+
+                                <!-- Row 2 -->
+                                <Grid Margin="0,2">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="30"/>
+                                        <ColumnDefinition Width="150"/>
+                                        <ColumnDefinition Width="80"/>
+                                        <ColumnDefinition Width="100"/>
+                                        <ColumnDefinition Width="60"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock Text="2"/>
+                                    <TextBlock Text="#2" Grid.Column="1"/>
+                                    <TextBlock Text="🔗" Grid.Column="2"/>
+                                    <CheckBox Grid.Column="3" IsChecked="False" Grid.ColumnSpan="2" Margin="31,0,0,0"/>
+                                    <Button Grid.Column="3" Content="Edit" Grid.ColumnSpan="2" Margin="96,0,0,0"/>
+
+                                </Grid>
+
+                                <!-- Row 3 -->
+                                <Grid Margin="0,2">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="30"/>
+                                        <ColumnDefinition Width="150"/>
+                                        <ColumnDefinition Width="80"/>
+                                        <ColumnDefinition Width="100"/>
+                                        <ColumnDefinition Width="60"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock Text="3"/>
+                                    <TextBlock Text="#3" Grid.Column="1"/>
+                                    <TextBlock Text="❌" Grid.Column="2"/>
+                                    <CheckBox Grid.Column="3" IsChecked="True" Grid.ColumnSpan="2" Margin="32,0,0,0"/>
+                                    <Button Grid.Column="3" Content="Edit" Grid.ColumnSpan="2" Margin="96,0,0,0"/>
+                                </Grid>
+                            </ItemsControl.Items>
+                        </ItemsControl>
+
+                        <!-- Footer Message -->
+                        <TextBlock Grid.Row="2" Text="Controller 2 is using Profile 'Xbox emulation'. Battery level is 100%" Margin="0,10,0,0"/>
+                    </Grid>
+                </TabItem>
+
+                <TabItem Header="Scan">
+                    <Grid Margin="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <!-- Placeholder for Camera Feed or Image -->
+                        <Border BorderBrush="Gray" BorderThickness="1" Grid.Row="0" CornerRadius="8">
+                            <Image x:Name="CameraFeed" Stretch="Uniform"/>
+                        </Border>
+
+                        <!-- Scan Button -->
+                        <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0,10,0,0" HorizontalAlignment="Center">
+                            <Button Content="Generate New QR Code"  Margin="5"/>
+                            <Button Content="Manual Login"  Margin="5"/>
+                            <TextBlock x:Name="QrResultText" Text="Please Scan the QR Code ." Margin="10,0,0,0" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Grid>
+                </TabItem>
+
             </TabControl>
         </Grid>
     </DockPanel>
