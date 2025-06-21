@@ -2,6 +2,8 @@
 using System.Collections.ObjectModel;
 using System.Drawing;
 using System.IO;
+using System.Net;
+using System.Net.Sockets;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -39,11 +41,17 @@ namespace FYP
             var window = new InputProfileWindow();
             window.Show();
         }
+
+        
         private void GenerateQrCode_Click(object sender, RoutedEventArgs e)
         {
             // Generate a one-time token (replace with your actual auth logic or GUID-based ID)
-            string oneTimeToken = Guid.NewGuid().ToString(); // You could also use a JWT or cryptographic token
-            string qrData = $"login:{oneTimeToken}";
+            //string oneTimeToken = Guid.NewGuid().ToString(); // You could also use a JWT or cryptographic token
+            //string qrData = $"login:{oneTimeToken}";
+
+            //this is for generating ip address qr code
+            string localIp = GetLocalIPAddress();
+            string qrData = $"{localIp}";
 
             using (QRCodeGenerator qrGenerator = new QRCodeGenerator())
             using (QRCodeData qrCodeData = qrGenerator.CreateQrCode(qrData, QRCodeGenerator.ECCLevel.Q))
@@ -51,11 +59,26 @@ namespace FYP
             using (Bitmap qrBitmap = qrCode.GetGraphic(20))
             {
                 QrDisplayImage.Source = ConvertBitmapToBitmapImage(qrBitmap);
-                QrStatusText.Text = $"QR code generated with token:\n{oneTimeToken}";
+                //QrStatusText.Text = $"QR code generated with token:\n{oneTimeToken}";
+                QrStatusText.Text = $"QR code generated with token:\n{localIp}";
             }
 
             // Optional: Store token server-side or in memory for validation later
-            StoreTokenForLogin(oneTimeToken);
+            //StoreTokenForLogin(oneTimeToken);
+        }
+
+        //method to get local ip
+        private string GetLocalIPAddress()
+        {
+            var host = Dns.GetHostEntry(Dns.GetHostName());
+            foreach (var ip in host.AddressList){
+                if (ip.AddressFamily == AddressFamily.InterNetwork)
+                {
+                    return ip.ToString(); // IPv4
+                }
+            }
+
+            throw new Exception("No network adapters with an IPv4 address in the system!");
         }
 
         private BitmapImage ConvertBitmapToBitmapImage(Bitmap bitmap)
