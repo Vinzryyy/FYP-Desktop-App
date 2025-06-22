@@ -60,6 +60,10 @@
             "QRCoder": {
               "target": "Package",
               "version": "[1.6.0, )"
+            },
+            "WindowsInput": {
+              "target": "Package",
+              "version": "[6.4.1, )"
             }
           },
           "imports": [

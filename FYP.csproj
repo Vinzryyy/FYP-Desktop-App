@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <PackageReference Include="Fleck" Version="1.2.0" />
+    <PackageReference Include="WindowsInput" Version="6.4.1" />
     <PackageReference Include="MaterialDesignColors" Version="5.2.1" />
     <PackageReference Include="MaterialDesignThemes" Version="5.2.1" />
     <PackageReference Include="QRCoder" Version="1.6.0" />

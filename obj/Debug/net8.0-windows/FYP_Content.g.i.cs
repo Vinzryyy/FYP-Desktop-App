@@ -8,6 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("inputprofilewindow.xaml.cs")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("mouse-keyboard-hook-logo.png")]
 
 

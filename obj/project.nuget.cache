@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "zmJHM2OShgI=",
+  "dgSpecHash": "DZFQAsR+eOw=",
   "success": true,
   "projectFilePath": "C:\\Users\\USER\\Desktop\\FYP\\FYP-Desktop-App\\FYP.csproj",
   "expectedPackageFiles": [
@@ -10,7 +10,8 @@
     "C:\\Users\\USER\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\microsoft.xaml.behaviors.wpf\\1.1.39\\microsoft.xaml.behaviors.wpf.1.1.39.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\qrcoder\\1.6.0\\qrcoder.1.6.0.nupkg.sha512",
-    "C:\\Users\\USER\\.nuget\\packages\\system.drawing.common\\6.0.0\\system.drawing.common.6.0.0.nupkg.sha512"
+    "C:\\Users\\USER\\.nuget\\packages\\system.drawing.common\\6.0.0\\system.drawing.common.6.0.0.nupkg.sha512",
+    "C:\\Users\\USER\\.nuget\\packages\\windowsinput\\6.4.1\\windowsinput.6.4.1.nupkg.sha512"
   ],
   "logs": []
 }
