@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\USER\\Desktop\\FYP\\FYP-Desktop-App\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{7A022FF1-F07F-4683-94AE-94D23D9A0C81}|FYP.csproj|c:\\users\\user\\desktop\\fyp\\fyp-desktop-app\\assemblyinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7A022FF1-F07F-4683-94AE-94D23D9A0C81}|FYP.csproj|solutionrelative:assemblyinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{7A022FF1-F07F-4683-94AE-94D23D9A0C81}|FYP.csproj|c:\\users\\user\\desktop\\fyp\\fyp-desktop-app\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{7A022FF1-F07F-4683-94AE-94D23D9A0C81}|FYP.csproj|solutionrelative:mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7A022FF1-F07F-4683-94AE-94D23D9A0C81}|FYP.csproj|c:\\users\\user\\desktop\\fyp\\fyp-desktop-app\\assemblyinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7A022FF1-F07F-4683-94AE-94D23D9A0C81}|FYP.csproj|solutionrelative:assemblyinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{7A022FF1-F07F-4683-94AE-94D23D9A0C81}|FYP.csproj|c:\\users\\user\\desktop\\fyp\\fyp-desktop-app\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
@@ -57,7 +57,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 248,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
@@ -73,19 +73,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "MainWindow.xaml.cs",
               "DocumentMoniker": "C:\\Users\\USER\\Desktop\\FYP\\FYP-Desktop-App\\MainWindow.xaml.cs",
               "RelativeDocumentMoniker": "MainWindow.xaml.cs",
               "ToolTip": "C:\\Users\\USER\\Desktop\\FYP\\FYP-Desktop-App\\MainWindow.xaml.cs",
               "RelativeToolTip": "MainWindow.xaml.cs",
-              "ViewState": "AQIAAFoAAAAAAAAAAAAAAG0AAAAJAAAA",
+              "ViewState": "AQIAAHMAAAAAAAAAAAAwwIgAAAAgAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-09T14:34:45.49Z"
+              "WhenOpened": "2025-06-09T14:34:45.49Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "AssemblyInfo.cs",
               "DocumentMoniker": "C:\\Users\\USER\\Desktop\\FYP\\FYP-Desktop-App\\AssemblyInfo.cs",
               "RelativeDocumentMoniker": "AssemblyInfo.cs",
@@ -93,8 +94,7 @@
               "RelativeToolTip": "AssemblyInfo.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-22T03:53:36.959Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-22T03:53:36.959Z"
             },
             {
               "$type": "Document",

@@ -32,7 +32,22 @@ namespace FYP
         private WebSocketServer server;
         private IWebSocketConnection connectedClient;
 
+        //for json interpreting
+        private Dictionary<string, string> inputMap = new();
 
+        private void LoadInputMappings()
+        {
+            try
+            {
+                string mappingJson = File.ReadAllText("input_mapping.json");
+                inputMap = JsonSerializer.Deserialize<Dictionary<string, string>>(mappingJson);
+                Console.WriteLine("Mappings loaded.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to load mapping: " + ex.Message);
+            }
+        }
 
         private void UpdateInputProfileButton_Click(object sender, RoutedEventArgs e)
         {
@@ -114,9 +129,12 @@ namespace FYP
             // Example: You could call an API here or store in a dictionary
             //Console.WriteLine($"Stored login token: {token}");
         }
+
+        //CONSTRUCTOR
         public MainWindow()
         {
             InitializeComponent();
+            LoadInputMappings();
             StartWebSocketServer();
 
         }
