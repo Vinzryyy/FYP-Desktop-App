@@ -175,12 +175,35 @@ namespace FYP
 
                         foreach (var input in inputs)
                         {
-                            string log = $"Received: {input.id} - {input.state}";
-                            Console.WriteLine(log);
+
+                            string id = input.id.ToLower();
+                            string state = input.state;
+                            string mappingInfo;
+
+                            if (inputMap.TryGetValue(id, out string mappedAction))
+                            {
+                                mappingInfo = $"Mapped to: {mappedAction}";
+                            }
+                            else
+                            {
+                                mappingInfo = $"No mapping found for: {id}";
+                            }
+
+                            string fullLog = $"Received: {id} - {state} | {mappingInfo}";
+                            Console.WriteLine(fullLog);
+
                             Dispatcher.Invoke(() =>
                             {
-                                QrStatusText.Text += $"\n{log}";
+                                QrStatusText.Text += $"\n{fullLog}";
                             });
+                            //string log = $"Received: {input.id} - {input.state}";
+                            //Console.WriteLine(log);
+                            //Dispatcher.Invoke(() =>
+                            //{
+                            //    QrStatusText.Text += $"\n{log}";
+                            //});
+
+
                         }
                     }
                     catch (Exception ex)
