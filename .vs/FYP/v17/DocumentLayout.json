@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Users\\USER\\Desktop\\FYP\\FYP-Desktop-App\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{7A022FF1-F07F-4683-94AE-94D23D9A0C81}|FYP.csproj|c:\\users\\user\\desktop\\fyp\\fyp-desktop-app\\assemblyinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7A022FF1-F07F-4683-94AE-94D23D9A0C81}|FYP.csproj|solutionrelative:assemblyinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{7A022FF1-F07F-4683-94AE-94D23D9A0C81}|FYP.csproj|c:\\users\\user\\desktop\\fyp\\fyp-desktop-app\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{7A022FF1-F07F-4683-94AE-94D23D9A0C81}|FYP.csproj|solutionrelative:mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -53,11 +57,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 248,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "MainWindow.xaml",
               "DocumentMoniker": "C:\\Users\\USER\\Desktop\\FYP\\FYP-Desktop-App\\MainWindow.xaml",
               "RelativeDocumentMoniker": "MainWindow.xaml",
@@ -65,25 +69,36 @@
               "RelativeToolTip": "MainWindow.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
               "WhenOpened": "2025-06-10T07:24:25.506Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "MainWindow.xaml.cs",
               "DocumentMoniker": "C:\\Users\\USER\\Desktop\\FYP\\FYP-Desktop-App\\MainWindow.xaml.cs",
               "RelativeDocumentMoniker": "MainWindow.xaml.cs",
               "ToolTip": "C:\\Users\\USER\\Desktop\\FYP\\FYP-Desktop-App\\MainWindow.xaml.cs",
               "RelativeToolTip": "MainWindow.xaml.cs",
-              "ViewState": "AQIAACsAAAAAAAAAAAAgwDUAAAAeAAAA",
+              "ViewState": "AQIAAFoAAAAAAAAAAAAAAG0AAAAJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-09T14:34:45.49Z",
+              "WhenOpened": "2025-06-09T14:34:45.49Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "AssemblyInfo.cs",
+              "DocumentMoniker": "C:\\Users\\USER\\Desktop\\FYP\\FYP-Desktop-App\\AssemblyInfo.cs",
+              "RelativeDocumentMoniker": "AssemblyInfo.cs",
+              "ToolTip": "C:\\Users\\USER\\Desktop\\FYP\\FYP-Desktop-App\\AssemblyInfo.cs",
+              "RelativeToolTip": "AssemblyInfo.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-22T03:53:36.959Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "InputProfileWindow.xaml.cs",
               "DocumentMoniker": "C:\\Users\\USER\\Desktop\\FYP\\FYP-Desktop-App\\InputProfileWindow.xaml.cs",
               "RelativeDocumentMoniker": "InputProfileWindow.xaml.cs",
@@ -95,7 +110,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "InputProfileWindow.xaml",
               "DocumentMoniker": "C:\\Users\\USER\\Desktop\\FYP\\FYP-Desktop-App\\InputProfileWindow.xaml",
               "RelativeDocumentMoniker": "InputProfileWindow.xaml",
@@ -106,7 +121,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "FYP.csproj",
               "DocumentMoniker": "C:\\Users\\USER\\Desktop\\FYP\\FYP-Desktop-App\\FYP.csproj",
               "RelativeDocumentMoniker": "FYP.csproj",
@@ -118,7 +133,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 11,
               "Title": "UpdateProfileWindow.g.cs",
               "DocumentMoniker": "C:\\Users\\USER\\Desktop\\FYP\\FYP-Desktop-App\\obj\\Debug\\net8.0-windows\\UpdateProfileWindow.g.cs",
               "RelativeDocumentMoniker": "obj\\Debug\\net8.0-windows\\UpdateProfileWindow.g.cs",
@@ -130,7 +145,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "UpdateProfileWindow.xaml.cs",
               "DocumentMoniker": "C:\\Users\\USER\\Desktop\\FYP\\FYP-Desktop-App\\UpdateProfileWindow.xaml.cs",
               "RelativeDocumentMoniker": "UpdateProfileWindow.xaml.cs",
@@ -142,7 +157,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "CONTROLLER.png",
               "DocumentMoniker": "C:\\Users\\USER\\Desktop\\FYP\\FYP-Desktop-App\\Image\\CONTROLLER.png",
               "RelativeDocumentMoniker": "Image\\CONTROLLER.png",
@@ -153,7 +168,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "Microsoft.Common.CurrentVersion.targets",
               "DocumentMoniker": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets",
@@ -165,7 +180,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "UpdateProfileWindow.xaml",
               "DocumentMoniker": "C:\\Users\\USER\\Desktop\\FYP\\FYP-Desktop-App\\UpdateProfileWindow.xaml",
               "RelativeDocumentMoniker": "UpdateProfileWindow.xaml",
@@ -176,7 +191,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 10,
               "Title": "InputProfileWindow.g.cs",
               "DocumentMoniker": "C:\\Users\\USER\\Desktop\\FYP\\FYP-Desktop-App\\obj\\Debug\\net8.0-windows\\InputProfileWindow.g.cs",
               "RelativeDocumentMoniker": "obj\\Debug\\net8.0-windows\\InputProfileWindow.g.cs",

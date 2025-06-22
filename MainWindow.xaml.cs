@@ -15,13 +15,24 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using Fleck;
+using System.Text.Json;
+using System.Threading.Tasks;
+
 
 namespace FYP
 {
+
     
+
+
     public partial class MainWindow : Window
     {
-        
+        //
+        private WebSocketServer server;
+        private IWebSocketConnection connectedClient;
+
+
 
         private void UpdateInputProfileButton_Click(object sender, RoutedEventArgs e)
         {
@@ -106,14 +117,81 @@ namespace FYP
         public MainWindow()
         {
             InitializeComponent();
-           
+            StartWebSocketServer();
+
+        }
+
+        //
+        private void StartWebSocketServer()
+        {
+            FleckLog.Level = LogLevel.Info;
+            server = new WebSocketServer("ws://0.0.0.0:8181");
+
+            FleckLog.Level = LogLevel.Info;
+            server = new WebSocketServer("ws://0.0.0.0:8181");
+
+            server.Start(socket =>
+            {
+                socket.OnOpen = () =>
+                {
+                    connectedClient = socket;
+                    Dispatcher.Invoke(() =>
+                    {
+                        QrStatusText.Text += "\nConnection opened.";
+                    });
+                };
+
+                socket.OnClose = () =>
+                {
+                    Dispatcher.Invoke(() =>
+                    {
+                        QrStatusText.Text += "\nConnection closed.";
+                    });
+                };
+
+                socket.OnMessage = message =>
+                {
+                    try
+                    {
+                        var inputs = JsonSerializer.Deserialize<List<InputPacket>>(message);
+
+                        foreach (var input in inputs)
+                        {
+                            string log = $"Received: {input.id} - {input.state}";
+                            Console.WriteLine(log);
+                            Dispatcher.Invoke(() =>
+                            {
+                                QrStatusText.Text += $"\n{log}";
+                            });
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Dispatcher.Invoke(() =>
+                        {
+                            QrStatusText.Text += $"\nError: {ex.Message}";
+                        });
+                    }
+                };
+            });
+
+            Console.WriteLine("WebSocket server started.");
         }
       
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-          
+
         }
 
-       
+
     }
+
+
+    public class InputPacket { 
+        public string type {  get; set; }
+        public string id { get; set; }
+        public string state { get; set; }
+        public long timestamp { get; set; }
+    }
+
 }

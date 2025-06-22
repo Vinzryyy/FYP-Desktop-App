@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "MfOHD8jl3Sw=",
+  "dgSpecHash": "zmJHM2OShgI=",
   "success": true,
   "projectFilePath": "C:\\Users\\USER\\Desktop\\FYP\\FYP-Desktop-App\\FYP.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\USER\\.nuget\\packages\\fleck\\1.2.0\\fleck.1.2.0.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\materialdesigncolors\\5.2.1\\materialdesigncolors.5.2.1.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\materialdesignthemes\\5.2.1\\materialdesignthemes.5.2.1.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
