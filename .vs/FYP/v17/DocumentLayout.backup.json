@@ -11,16 +11,20 @@
       "RelativeMoniker": "D:0:0:{7A022FF1-F07F-4683-94AE-94D23D9A0C81}|FYP.csproj|solutionrelative:mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{7A022FF1-F07F-4683-94AE-94D23D9A0C81}|FYP.csproj|c:\\users\\user\\source\\repos\\vinzryyy\\fyp-desktop-app\\fyp.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{7A022FF1-F07F-4683-94AE-94D23D9A0C81}|FYP.csproj|solutionrelative:fyp.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7A022FF1-F07F-4683-94AE-94D23D9A0C81}|FYP.csproj|c:\\users\\user\\source\\repos\\vinzryyy\\fyp-desktop-app\\assemblyinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7A022FF1-F07F-4683-94AE-94D23D9A0C81}|FYP.csproj|solutionrelative:assemblyinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{7A022FF1-F07F-4683-94AE-94D23D9A0C81}|FYP.csproj|c:\\users\\user\\source\\repos\\vinzryyy\\fyp-desktop-app\\inputprofilewindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{7A022FF1-F07F-4683-94AE-94D23D9A0C81}|FYP.csproj|solutionrelative:inputprofilewindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{7A022FF1-F07F-4683-94AE-94D23D9A0C81}|FYP.csproj|c:\\users\\user\\source\\repos\\vinzryyy\\fyp-desktop-app\\inputprofilewindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{7A022FF1-F07F-4683-94AE-94D23D9A0C81}|FYP.csproj|solutionrelative:inputprofilewindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7A022FF1-F07F-4683-94AE-94D23D9A0C81}|FYP.csproj|c:\\users\\user\\source\\repos\\vinzryyy\\fyp-desktop-app\\fyp.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{7A022FF1-F07F-4683-94AE-94D23D9A0C81}|FYP.csproj|solutionrelative:fyp.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     },
     {
       "AbsoluteMoniker": "D:0:0:{7A022FF1-F07F-4683-94AE-94D23D9A0C81}|FYP.csproj|c:\\users\\user\\source\\repos\\vinzryyy\\fyp-desktop-app\\image\\controller.png||{58961B49-13E0-48C0-9258-13CBC4D40279}",
@@ -53,7 +57,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 248,
-          "SelectedChildIndex": 10,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
@@ -65,36 +69,24 @@
               "RelativeToolTip": "MainWindow.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
               "WhenOpened": "2025-06-10T07:24:25.506Z",
-              "IsPinned": true,
+              "IsPinned": true
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "MainWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\Vinzryyy\\FYP-Desktop-App\\MainWindow.xaml.cs",
+              "RelativeDocumentMoniker": "MainWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\Vinzryyy\\FYP-Desktop-App\\MainWindow.xaml.cs",
+              "RelativeToolTip": "MainWindow.xaml.cs",
+              "ViewState": "AgIAAL4AAAAAAAAAAAAcwNcAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-09T14:34:45.49Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "Microsoft.Common.CurrentVersion.targets",
-              "DocumentMoniker": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets",
-              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets",
-              "ToolTip": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets",
-              "RelativeToolTip": "..\\..\\..\\..\\..\\..\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets",
-              "ViewState": "AgIAAEQUAAAAAAAAAAAnwBIVAAAEAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003801|",
-              "WhenOpened": "2025-06-19T03:28:36.72Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "CONTROLLER.png",
-              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\Vinzryyy\\FYP-Desktop-App\\Image\\CONTROLLER.png",
-              "RelativeDocumentMoniker": "Image\\CONTROLLER.png",
-              "ToolTip": "C:\\Users\\User\\source\\repos\\Vinzryyy\\FYP-Desktop-App\\Image\\CONTROLLER.png",
-              "RelativeToolTip": "Image\\CONTROLLER.png",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001533|",
-              "WhenOpened": "2025-06-18T12:54:13.891Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "InputProfileWindow.xaml.cs",
               "DocumentMoniker": "C:\\Users\\User\\source\\repos\\Vinzryyy\\FYP-Desktop-App\\InputProfileWindow.xaml.cs",
               "RelativeDocumentMoniker": "InputProfileWindow.xaml.cs",
@@ -102,37 +94,46 @@
               "RelativeToolTip": "InputProfileWindow.xaml.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-14T12:45:06.78Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-14T12:45:06.78Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "FYP.csproj",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\Vinzryyy\\FYP-Desktop-App\\FYP.csproj",
+              "RelativeDocumentMoniker": "FYP.csproj",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\Vinzryyy\\FYP-Desktop-App\\FYP.csproj",
+              "RelativeToolTip": "FYP.csproj",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-06-14T12:40:39.42Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
+              "Title": "AssemblyInfo.cs",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\Vinzryyy\\FYP-Desktop-App\\AssemblyInfo.cs",
+              "RelativeDocumentMoniker": "AssemblyInfo.cs",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\Vinzryyy\\FYP-Desktop-App\\AssemblyInfo.cs",
+              "RelativeToolTip": "AssemblyInfo.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-22T03:53:36.959Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "InputProfileWindow.xaml",
               "DocumentMoniker": "C:\\Users\\User\\source\\repos\\Vinzryyy\\FYP-Desktop-App\\InputProfileWindow.xaml",
               "RelativeDocumentMoniker": "InputProfileWindow.xaml",
               "ToolTip": "C:\\Users\\User\\source\\repos\\Vinzryyy\\FYP-Desktop-App\\InputProfileWindow.xaml",
               "RelativeToolTip": "InputProfileWindow.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-06-14T12:44:21.35Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-14T12:44:21.35Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "FYP.csproj",
-              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\Vinzryyy\\FYP-Desktop-App\\FYP.csproj",
-              "RelativeDocumentMoniker": "FYP.csproj",
-              "ToolTip": "C:\\Users\\User\\source\\repos\\Vinzryyy\\FYP-Desktop-App\\FYP.csproj",
-              "RelativeToolTip": "FYP.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-06-14T12:40:39.42Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 11,
               "Title": "UpdateProfileWindow.g.cs",
               "DocumentMoniker": "C:\\Users\\User\\source\\repos\\Vinzryyy\\FYP-Desktop-App\\obj\\Debug\\net8.0-windows\\UpdateProfileWindow.g.cs",
               "RelativeDocumentMoniker": "obj\\Debug\\net8.0-windows\\UpdateProfileWindow.g.cs",
@@ -144,7 +145,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "UpdateProfileWindow.xaml.cs",
               "DocumentMoniker": "C:\\Users\\User\\source\\repos\\Vinzryyy\\FYP-Desktop-App\\UpdateProfileWindow.xaml.cs",
               "RelativeDocumentMoniker": "UpdateProfileWindow.xaml.cs",
@@ -156,7 +157,30 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "CONTROLLER.png",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\Vinzryyy\\FYP-Desktop-App\\Image\\CONTROLLER.png",
+              "RelativeDocumentMoniker": "Image\\CONTROLLER.png",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\Vinzryyy\\FYP-Desktop-App\\Image\\CONTROLLER.png",
+              "RelativeToolTip": "Image\\CONTROLLER.png",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001533|",
+              "WhenOpened": "2025-06-18T12:54:13.891Z"
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 7,
+              "Title": "Microsoft.Common.CurrentVersion.targets",
+              "DocumentMoniker": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets",
+              "ToolTip": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\..\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets",
+              "ViewState": "AgIAAEQUAAAAAAAAAAAnwBIVAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003801|",
+              "WhenOpened": "2025-06-19T03:28:36.72Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
               "Title": "UpdateProfileWindow.xaml",
               "DocumentMoniker": "C:\\Users\\User\\source\\repos\\Vinzryyy\\FYP-Desktop-App\\UpdateProfileWindow.xaml",
               "RelativeDocumentMoniker": "UpdateProfileWindow.xaml",
@@ -167,7 +191,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 10,
               "Title": "InputProfileWindow.g.cs",
               "DocumentMoniker": "C:\\Users\\User\\source\\repos\\Vinzryyy\\FYP-Desktop-App\\obj\\Debug\\net8.0-windows\\InputProfileWindow.g.cs",
               "RelativeDocumentMoniker": "obj\\Debug\\net8.0-windows\\InputProfileWindow.g.cs",
@@ -176,19 +200,6 @@
               "ViewState": "AgIAAC4AAAAAAAAAAAAAwCgAAAAZAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-06-11T12:01:22.392Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "MainWindow.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\Vinzryyy\\FYP-Desktop-App\\MainWindow.xaml.cs",
-              "RelativeDocumentMoniker": "MainWindow.xaml.cs",
-              "ToolTip": "C:\\Users\\User\\source\\repos\\Vinzryyy\\FYP-Desktop-App\\MainWindow.xaml.cs*",
-              "RelativeToolTip": "MainWindow.xaml.cs*",
-              "ViewState": "AgIAAEsAAAAAAAAAAAAowGMAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-09T14:34:45.49Z",
-              "EditorCaption": ""
             }
           ]
         }

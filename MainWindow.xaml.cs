@@ -200,7 +200,21 @@ namespace FYP
             var window = new InputProfileWindow();
             window.Show();
         }
+        private void ManualLogin_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string localIp = GetLocalIPAddress();
+                string serverInfo = $"WebSocket Server is running at: ws://{localIp}:8181";
 
+                MessageBox.Show(serverInfo, "Manual Login Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                QrStatusText.Text += $"\n{serverInfo}";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error retrieving server info: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
         private void GenerateQrCode_Click(object sender, RoutedEventArgs e)
         {
             try
