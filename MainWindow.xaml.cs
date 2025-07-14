@@ -1,29 +1,36 @@
-﻿using QRCoder;
+﻿using Fleck;
+using FYP.Models;
+using QRCoder;
+using System.Net.Http;
+using System.Text;
+using System.Text.Json;
+using System.Threading.Tasks;
+using System.Windows;
 using System.Collections.ObjectModel;
 using System.Drawing;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
-using System.Text;
-using System.Windows;
+using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using FYP.Services;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
-using Fleck;
-using System.Text.Json;
-using System.Threading.Tasks;
-using System.Runtime.InteropServices;
 
 namespace FYP
 {
     public partial class MainWindow : Window
     {
+ 
+
+   
+
         // P/Invoke declarations for Windows API
         [DllImport("user32.dll")]
         private static extern void keybd_event(byte bVk, byte bScan, uint dwFlags, UIntPtr dwExtraInfo);
@@ -50,6 +57,7 @@ namespace FYP
         //
         private WebSocketServer server;
         private IWebSocketConnection connectedClient;
+      
 
         //for json interpreting
         private Dictionary<string, string> inputMap = new Dictionary<string, string>();
@@ -275,13 +283,26 @@ namespace FYP
                 return bitmapImage;
             }
         }
+        public ObservableCollection<DeviceProfile> Controllers { get; set; } = new();
+        public ObservableCollection<InputProfile> InputProfiles { get; set; } = new();
 
         // CONSTRUCTOR
         public MainWindow()
         {
             InitializeComponent();
+            this.DataContext = this;
             LoadInputMappings();
             StartWebSocketServer();
+
+           
+        
+            InputProfiles.Add(new InputProfile { ProfileName = "FPS Profile", DateCreated = "2024-01-12", LastUpdated = "2024-05-01" });
+            InputProfiles.Add(new InputProfile { ProfileName = "Racing Profile", DateCreated = "2024-02-15", LastUpdated = "2024-06-10" });
+            InputProfiles.Add(new InputProfile { ProfileName = "Custom Profile", DateCreated = "2024-03-05", LastUpdated = "2024-07-01" });
+
+            Controllers.Add(new DeviceProfile { Id = 1, DeviceName = "Alice iPhone 12", Status = "🔗", SelectedProfile = InputProfiles[0], SelectedProfileNum = "Xbox emulation" });
+            Controllers.Add(new DeviceProfile { Id = 2, DeviceName = "Bob iPhone 14", Status = "🔗", SelectedProfile = InputProfiles[1], SelectedProfileNum = "Keyboard n Mouse" });
+            // ✅ Now populate controllers
         }
 
         // WebSocket server setup
@@ -387,11 +408,43 @@ namespace FYP
                 Console.WriteLine($"Server start error: {ex.Message}");
             }
         }
+        private async void SaveProfileButton_Click(object sender, RoutedEventArgs e)
+        {
+            var inputProfile = InputProfiles.FirstOrDefault(p => p.ProfileName == "FPS Profile");
+
+            if (inputProfile == null)
+            {
+                MessageBox.Show("FPS Profile not found in InputProfiles.");
+                return;
+            }
+
+            var profile = new DeviceProfile
+            {
+                ProfileName = inputProfile.ProfileName,
+                DateCreated = DateTime.Now.ToString("yyyy-MM-dd"),
+                LastUpdated = DateTime.Now.ToString("yyyy-MM-dd"),
+                DeviceName = "Alice iPhone 12",
+                Status = "Linked",
+                SelectedProfile = inputProfile, 
+                SelectedProfileNum = "1",
+                IsLinked = true,
+                NeedsUpdate = false
+            };
+
+            var firebase = new FirebaseService();
+            await firebase.SaveProfileAsync(profile);
+        }
 
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // Implementation for tab control selection change if needed
         }
+        DeviceProfile profile = new DeviceProfile
+        {
+            ProfileName = "FPS Profile",
+            DateCreated = DateTime.Now.ToString("yyyy-MM-dd"),
+            // etc.
+        };
 
         // Cleanup when window is closing
         protected override void OnClosing(System.ComponentModel.CancelEventArgs e)

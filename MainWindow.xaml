@@ -6,250 +6,165 @@
         xmlns:local="clr-namespace:FYP"
         mc:Ignorable="d"
         Title="MainWindow" Height="600" Width="1000">
-    <DockPanel>
-        <!-- Main Content -->
+    <Grid>
+        <Image Source="Image/Background FYP.jpg" Stretch="UniformToFill" Panel.ZIndex="0"/>
+        <DockPanel Panel.ZIndex="1">
+            <!-- Main Content -->
         <Grid>
             <TabControl SelectionChanged="TabControl_SelectionChanged">
                 <!-- Controller Tab -->
-                <TabItem Header="Controller" Margin="-2,-2,-2,2">
-                    <Grid Margin="10">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="87*"/>
-                            <ColumnDefinition Width="887*"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
+                <TabItem Header="Controller" Margin="-3,0,0,0">
+                        <Grid Margin="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
 
-                        <!-- Headers -->
-                        <Grid Grid.Row="0" Margin="0,0,0,5" Grid.ColumnSpan="2">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="30"/>
-                                <ColumnDefinition Width="180"/>
-                                <ColumnDefinition Width="80"/>
-                                <ColumnDefinition Width="200"/>
-                                <ColumnDefinition Width="200"/>
-                                <ColumnDefinition Width="120"/>
-                                <ColumnDefinition Width="70"/>
-                                <ColumnDefinition Width="70"/>
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Text="ID" FontWeight="Bold"/>
-                            <TextBlock Text="Name" Grid.Column="1" FontWeight="Bold"/>
-                            <TextBlock Text="Status" Grid.Column="2" FontWeight="Bold" />
-                            <TextBlock Text="Selected Input Profile" Grid.Column="3" FontWeight="Bold" HorizontalAlignment="Center"/>
-                            <TextBlock Text="Selected Profile Number" Grid.Column="4" FontWeight="Bold" HorizontalAlignment="Center"/>
-                            <TextBlock Text="Remove Divices" Grid.Column="5" FontWeight="Bold" HorizontalAlignment="Center"/>
-                            <TextBlock Text="Linked" Grid.Column="6" FontWeight="Bold" HorizontalAlignment="Center"/>
-                            <TextBlock Text="Updates" Grid.Column="7" FontWeight="Bold" HorizontalAlignment="Center"/>
+                            <!-- Header Row -->
+                            <Grid Grid.Row="0" Margin="0,0,0,5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="30"/>
+                                    <ColumnDefinition Width="180"/>
+                                    <ColumnDefinition Width="80"/>
+                                    <ColumnDefinition Width="200"/>
+                                    <ColumnDefinition Width="200"/>
+                                    <ColumnDefinition Width="120"/>
+                                    <ColumnDefinition Width="70"/>
+                                    <ColumnDefinition Width="70"/>
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Text="ID" FontWeight="Bold"/>
+                                <TextBlock Text="Name" Grid.Column="1" FontWeight="Bold"/>
+                                <TextBlock Text="Status" Grid.Column="2" FontWeight="Bold"/>
+                                <TextBlock Text="Selected Input Profile" Grid.Column="3" FontWeight="Bold" HorizontalAlignment="Center"/>
+                                <TextBlock Text="Selected Profile Number" Grid.Column="4" FontWeight="Bold" HorizontalAlignment="Center"/>
+                                <TextBlock Text="Remove Device" Grid.Column="5" FontWeight="Bold" HorizontalAlignment="Center"/>
+                                <TextBlock Text="Linked" Grid.Column="6" FontWeight="Bold" HorizontalAlignment="Center"/>
+                                <TextBlock Text="Updates" Grid.Column="7" FontWeight="Bold" HorizontalAlignment="Center"/>
+                            </Grid>
+
+                            <!-- Dynamic Rows -->
+                            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                                <ItemsControl ItemsSource="{Binding Controllers}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid Margin="0,2">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="30"/>
+                                                    <ColumnDefinition Width="180"/>
+                                                    <ColumnDefinition Width="80"/>
+                                                    <ColumnDefinition Width="200"/>
+                                                    <ColumnDefinition Width="200"/>
+                                                    <ColumnDefinition Width="120"/>
+                                                    <ColumnDefinition Width="70"/>
+                                                    <ColumnDefinition Width="70"/>
+                                                </Grid.ColumnDefinitions>
+
+                                                <TextBlock Text="{Binding Id}" Grid.Column="0"/>
+                                                <TextBlock Text="{Binding DeviceName}" Grid.Column="1"/>
+                                                <TextBlock Text="{Binding Status}" Grid.Column="2"/>
+
+                                                <ComboBox Grid.Column="3"  ItemsSource="{Binding DataContext.InputProfiles, RelativeSource={RelativeSource AncestorType=Window}}" SelectedItem="{Binding SelectedProfile}"  DisplayMemberPath="ProfileName" Width="170" HorizontalAlignment="Center"/>
+
+                                                <ComboBox Grid.Column="4" SelectedItem="{Binding SelectedProfileNum}" Width="170" HorizontalAlignment="Center">
+                                                    <ComboBoxItem Content="Keyboard n Mouse"/>
+                                                    <ComboBoxItem Content="Xbox emulation"/>
+                                                    <ComboBoxItem Content="DS4 emulation"/>
+                                                </ComboBox>
+
+                                                <Button Grid.Column="5" Content="Delete" Width="60" Margin="5,0" />
+
+                                                <Rectangle Grid.Column="6" Fill="{Binding LinkedBrush}" Width="30" Height="15" Margin="15,4"/>
+
+                                                <Button Grid.Column="7" Content="Update" Width="60" Margin="5,0" />
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </ScrollViewer>
                         </Grid>
-
-                        <!-- Rows -->
-                        <ItemsControl Grid.Row="1" Grid.ColumnSpan="2">
-                            <ItemsControl.Items>
-                                <!-- Row 1 -->
-                                <Grid Margin="0,2">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="30"/>
-                                        <ColumnDefinition Width="180"/>
-                                        <ColumnDefinition Width="80"/>
-                                        <ColumnDefinition Width="200"/>
-                                        <ColumnDefinition Width="200"/>
-                                        <ColumnDefinition Width="120"/>
-                                        <ColumnDefinition Width="70"/>
-                                        <ColumnDefinition Width="70"/>
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock Text="1" Grid.Column="0"/>
-                                    <TextBlock Text="Alice Iphone 12" Grid.Column="1"/>
-                                    <TextBlock Text="🔗" Grid.Column="2"/>
-                                    <ComboBox Grid.Column="3" SelectedIndex="0" HorizontalAlignment="Center" Width="170">
-                                        <ComboBoxItem Content="Keyboard n Mouse"/>
-                                        <ComboBoxItem Content="Xbox emulation"/>
-                                        <ComboBoxItem Content="DS4 emulation"/>
-                                    </ComboBox>
-                                    <ComboBox Grid.Column="4" SelectedIndex="0" HorizontalAlignment="Center" Width="170">
-                                        <ComboBoxItem Content="Keyboard n Mouse"/>
-                                        <ComboBoxItem Content="Xbox emulation"/>
-                                        <ComboBoxItem Content="DS4 emulation"/>
-                                    </ComboBox>
-                                    <Button Grid.Column="5" Content="Delete" Width="45" Height="22" Margin="8,0,7,0" VerticalAlignment="Center"/>
-                                    <Rectangle Grid.Column="6" Fill="Green" Width="30" Height="15" Margin="15,4,15,4"/>
-                                    <Button Grid.Column="7" Content="Update" Width="45" Height="22" Margin="8,0,7,0" VerticalAlignment="Center"/>
-
-                                </Grid>
-
-                                <!-- Row 2 -->
-                                <Grid Margin="0,2">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="30"/>
-                                        <ColumnDefinition Width="180"/>
-                                        <ColumnDefinition Width="80"/>
-                                        <ColumnDefinition Width="200"/>
-                                        <ColumnDefinition Width="200"/>
-                                        <ColumnDefinition Width="120"/>
-                                        <ColumnDefinition Width="70"/>
-                                        <ColumnDefinition Width="70"/>
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock Text="2" Grid.Column="0"/>
-                                    <TextBlock Text="Alice Iphone 12" Grid.Column="1"/>
-                                    <TextBlock Text="🔗" Grid.Column="2"/>
-                                    <ComboBox Grid.Column="3" SelectedIndex="0" HorizontalAlignment="Center" Width="170">
-                                        <ComboBoxItem Content="Keyboard n Mouse"/>
-                                        <ComboBoxItem Content="Xbox emulation"/>
-                                        <ComboBoxItem Content="DS4 emulation"/>
-                                    </ComboBox>
-                                    <ComboBox Grid.Column="4" SelectedIndex="0" HorizontalAlignment="Center" Width="170">
-                                        <ComboBoxItem Content="Keyboard n Mouse"/>
-                                        <ComboBoxItem Content="Xbox emulation"/>
-                                        <ComboBoxItem Content="DS4 emulation"/>
-                                    </ComboBox>
-                                    <Button Grid.Column="5" Content="Delete" Width="45" Height="22" Margin="8,0,7,0" VerticalAlignment="Center"/>
-                                    <Rectangle Grid.Column="6" Fill="Green" Width="30" Height="15" Margin="15,4,15,4"/>
-                                    <Button Grid.Column="7" Content="Update" Width="45" Height="22" Margin="8,0,7,0" VerticalAlignment="Center"/>
-
-                                </Grid>
-
-                                <!-- Row 3 -->
-                                <Grid Margin="0,2">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="30"/>
-                                        <ColumnDefinition Width="180"/>
-                                        <ColumnDefinition Width="80"/>
-                                        <ColumnDefinition Width="200"/>
-                                        <ColumnDefinition Width="200"/>
-                                        <ColumnDefinition Width="120"/>
-                                        <ColumnDefinition Width="70"/>
-                                        <ColumnDefinition Width="70"/>
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock Text="3" Grid.Column="0"/>
-                                    <TextBlock Text="Alice Iphone 12" Grid.Column="1"/>
-                                    <TextBlock Text="✖️" Grid.Column="2"/>
-                                    <ComboBox Grid.Column="3" SelectedIndex="0" HorizontalAlignment="Center" Width="170">
-                                        <ComboBoxItem Content="Keyboard n Mouse"/>
-                                        <ComboBoxItem Content="Xbox emulation"/>
-                                        <ComboBoxItem Content="DS4 emulation"/>
-                                    </ComboBox>
-                                    <ComboBox Grid.Column="4" SelectedIndex="0" HorizontalAlignment="Center" Width="170">
-                                        <ComboBoxItem Content="Keyboard n Mouse"/>
-                                        <ComboBoxItem Content="Xbox emulation"/>
-                                        <ComboBoxItem Content="DS4 emulation"/>
-                                    </ComboBox>
-                                    <Button Grid.Column="5" Content="Delete" Width="45" Height="22" Margin="8,0,7,0" VerticalAlignment="Center"/>
-                                    <Rectangle Grid.Column="6" Fill="Green" Width="30" Height="15" Margin="15,4,15,4"/>
-                                    <Button Grid.Column="7" Content="Update" Width="45" Height="22" Margin="8,0,7,0" VerticalAlignment="Center"/>
-                                </Grid>
-                            </ItemsControl.Items>
-                        </ItemsControl>
-                    </Grid>
-                </TabItem>
+                    </TabItem>
 
                 <!-- Profiles Tab -->
                 <TabItem Header="Input Profile">
-                    <Grid Margin="10">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
+                   <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
 
-                        <!-- Headers -->
-                        <Grid Grid.Row="0" Margin="0,0,0,5">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="40"/>
-                                <ColumnDefinition Width="250"/>
-                                <ColumnDefinition Width="300"/>
-                                <ColumnDefinition Width="300"/>
+        <!-- Header -->
+        <Grid Grid.Row="0" Margin="0,0,0,5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="40"/>
+                <ColumnDefinition Width="250"/>
+                <ColumnDefinition Width="300"/>
+                <ColumnDefinition Width="300"/>
+            </Grid.ColumnDefinitions>
 
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Text="ID" FontWeight="Bold"/>
-                            <TextBlock Text="Profile Name" Grid.Column="1" FontWeight="Bold"/>
-                            <TextBlock Text="Date Created" Grid.Column="2" FontWeight="Bold"/>
-                            <TextBlock Text="Last Updated" Grid.Column="3" FontWeight="Bold"/>
+            <TextBlock Text="ID" FontWeight="Bold"/>
+            <TextBlock Text="Profile Name" Grid.Column="1" FontWeight="Bold"/>
+            <TextBlock Text="Date Created" Grid.Column="2" FontWeight="Bold"/>
+            <TextBlock Text="Last Updated" Grid.Column="3" FontWeight="Bold"/>
+        </Grid>
 
-                        </Grid>
+        <!-- Example rows: you can replace this with an ItemsControl later -->
+                            <ItemsControl Grid.Row="1" ItemsSource="{Binding InputProfiles}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid Margin="0,2">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="40"/>
+                                                <ColumnDefinition Width="250"/>
+                                                <ColumnDefinition Width="300"/>
+                                                <ColumnDefinition Width="300"/>
+                                            </Grid.ColumnDefinitions>
 
-                        <!-- Rows -->
-                        <ItemsControl Grid.Row="1">
-                            <ItemsControl.Items>
-                                <!-- Row 1 -->
-                                <Grid Margin="0,2">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="40"/>
-                                        <ColumnDefinition Width="250"/>
-                                        <ColumnDefinition Width="300"/>
-                                        <ColumnDefinition Width="300"/>
+                                            <TextBlock Text="{Binding Id}" Grid.Column="0"/>
+                                            <TextBlock Text="{Binding ProfileName}" Grid.Column="1"/>
+                                            <TextBlock Text="{Binding DateCreated}" Grid.Column="2"/>
+                                            <TextBlock Text="{Binding LastUpdated}" Grid.Column="3"/>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
 
-                                    </Grid.ColumnDefinitions>
-
-                                    <TextBlock Text="1" Grid.Column="0"/>
-                                    <TextBlock Text="FPS Profile" Grid.Column="1"/>
-                                    <TextBlock Text="12/01/2024" Grid.Column="2"/>
-                                    <TextBlock Text="31/05/2024" Grid.Column="3"/>
-
-                                </Grid>
-
-                                <!-- Row 2 -->
-                                <Grid Margin="0,2">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="40"/>
-                                        <ColumnDefinition Width="250"/>
-                                        <ColumnDefinition Width="300"/>
-                                        <ColumnDefinition Width="300"/>
-
-                                    </Grid.ColumnDefinitions>
-
-                                    <TextBlock Text="2" Grid.Column="0"/>
-                                    <TextBlock Text="FPS Profile" Grid.Column="1"/>
-                                    <TextBlock Text="12/01/2024" Grid.Column="2"/>
-                                    <TextBlock Text="31/05/2024" Grid.Column="3"/>
-                                </Grid>
-                                <!-- Row 3 -->
-                                <Grid Margin="0,2">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="40"/>
-                                        <ColumnDefinition Width="250"/>
-                                        <ColumnDefinition Width="300"/>
-                                        <ColumnDefinition Width="300"/>
-
-                                    </Grid.ColumnDefinitions>
-
-                                    <TextBlock Text="3" Grid.Column="0"/>
-                                    <TextBlock Text="FPS Profile" Grid.Column="1"/>
-                                    <TextBlock Text="12/01/2024" Grid.Column="2"/>
-                                    <TextBlock Text="31/05/2024" Grid.Column="3"/>
-                                </Grid>
-                            </ItemsControl.Items>
-                        </ItemsControl>
-
-                        <!-- Bottom Buttons -->
-                        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,10,0,0">
-                            <Button Content="Create Input Profile" Width="150" Margin="0,0,10,0" Click="CreateInputProfileButton_Click"/>
-                            <Button Content="Edit Input Profile" Width="150"  Click="UpdateInputProfileButton_Click" />
-                        </StackPanel>
-                    </Grid>
+                            <!-- Action buttons -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,10,0,0">
+            <Button Content="Create Input Profile" Width="150" Margin="0,0,10,0" Click="CreateInputProfileButton_Click"/>
+            <Button Content="Edit Input Profile" Width="150" Click="UpdateInputProfileButton_Click"/>
+        </StackPanel>
+    </Grid>
                 </TabItem>
 
                 <!-- Scan Tab -->
                 <TabItem Header="Scan">
-                    <Grid Margin="10">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
+                        <Grid Margin="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="100"/>
+                                <!-- For status log -->
+                            </Grid.RowDefinitions>
 
-                        <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="8" Padding="10" HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <Image x:Name="QrDisplayImage" Stretch="None"/>
-                        </Border>
+                            <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="8" Padding="10" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Image x:Name="QrDisplayImage" Stretch="None"/>
+                            </Border>
 
-                        <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0,10,0,0" HorizontalAlignment="Center">
-                            <Button Content="Generate New QR Code" Click="GenerateQrCode_Click" Margin="5"/>
-                            <Button Content="Manual Login" Click ="ManualLogin_Click" Margin="5"/>
-                            <TextBlock x:Name="QrStatusText" Text="Ready to generate QR code." Margin="10,0,0,0" VerticalAlignment="Center"/>
-                        </StackPanel>
-                    </Grid>
-                </TabItem>
+                            <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0,10,0,0" HorizontalAlignment="Center">
+                                <Button Content="Generate New QR Code" Click="GenerateQrCode_Click" Margin="5"/>
+                                <Button Content="Manual Login" Click="ManualLogin_Click" Margin="5"/>
+                                <Button Content="Save Profile" Click="SaveProfileButton_Click" Margin="5"/>
+                            </StackPanel>
+
+                            <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" Margin="0,10,0,0">
+                                <TextBlock x:Name="QrStatusText" Text="Ready to generate QR code." TextWrapping="Wrap"/>
+                            </ScrollViewer>
+                        </Grid>
+                    </TabItem>
             </TabControl>
         </Grid>
     </DockPanel>
+    </Grid>
 </Window>

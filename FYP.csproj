@@ -10,10 +10,12 @@
 
   <ItemGroup>
     <None Remove="CONTROLLER.png" />
+    <None Remove="Image\Background FYP.jpg" />
     <None Remove="Image\CONTROLLER.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Image\Background FYP.jpg" />
     <Resource Include="Image\CONTROLLER.png" />
   </ItemGroup>
 
