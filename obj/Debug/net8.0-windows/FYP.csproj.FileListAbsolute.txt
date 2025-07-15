@@ -93,3 +93,5 @@ C:\Users\USER\Desktop\FYP\FYP-Desktop-App\obj\Debug\net8.0-windows\ref\FYP.dll
 C:\Users\User\source\repos\Vinzryyy\FYP-Desktop-App\bin\Debug\net8.0-windows\Fleck.dll
 C:\Users\User\source\repos\Vinzryyy\FYP-Desktop-App\bin\Debug\net8.0-windows\WindowsInput.dll
 C:\Users\User\source\repos\Vinzryyy\FYP-Desktop-App\obj\Debug\net8.0-windows\FYP_Content.g.cs
+C:\Users\User\source\repos\Vinzryyy\FYP-Desktop-App\obj\Debug\net8.0-windows\ProfileSelectorWindow.g.cs
+C:\Users\User\source\repos\Vinzryyy\FYP-Desktop-App\obj\Debug\net8.0-windows\ProfileSelectorWindow.baml

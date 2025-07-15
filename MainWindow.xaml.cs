@@ -27,9 +27,8 @@ namespace FYP
 {
     public partial class MainWindow : Window
     {
- 
 
-   
+        private int nextInputProfileId = 4;
 
         // P/Invoke declarations for Windows API
         [DllImport("user32.dll")]
@@ -191,16 +190,40 @@ namespace FYP
 
         private void UpdateInputProfileButton_Click(object sender, RoutedEventArgs e)
         {
-            var UpdateProfileWindow = new UpdateProfileWindow();
-            UpdateProfileWindow.Owner = this;
-            UpdateProfileWindow.ShowDialog();
+            var selector = new ProfileSelectorWindow(InputProfiles) { Owner = this };
+            bool? result = selector.ShowDialog();
+
+            if (result == true && selector.SelectedProfile != null)
+            {
+                var updateWindow = new UpdateProfileWindow(selector.SelectedProfile)
+                {
+                    Owner = this
+                };
+
+                if (updateWindow.ShowDialog() == true)
+                {
+                    MessageBox.Show("Profile updated successfully.");
+                }
+            }
         }
 
         private void CreateInputProfileButton_Click(object sender, RoutedEventArgs e)
         {
-            var InputProfileWindow = new InputProfileWindow();
-            InputProfileWindow.Owner = this;
-            InputProfileWindow.ShowDialog();
+            var inputProfileWindow = new InputProfileWindow
+            {
+                Owner = this
+            };
+
+            bool? result = inputProfileWindow.ShowDialog();
+
+            if (result == true && inputProfileWindow.NewProfile != null)
+            {
+                // Assign new ID here if needed
+                inputProfileWindow.NewProfile.Id = nextInputProfileId++;
+
+                InputProfiles.Add(inputProfileWindow.NewProfile);
+                MessageBox.Show($"Profile '{inputProfileWindow.NewProfile.ProfileName}' created successfully.");
+            }
         }
 
         private void OpenInputProfileWindow_Click(object sender, RoutedEventArgs e)
@@ -296,9 +319,9 @@ namespace FYP
 
            
         
-            InputProfiles.Add(new InputProfile { ProfileName = "FPS Profile", DateCreated = "2024-01-12", LastUpdated = "2024-05-01" });
-            InputProfiles.Add(new InputProfile { ProfileName = "Racing Profile", DateCreated = "2024-02-15", LastUpdated = "2024-06-10" });
-            InputProfiles.Add(new InputProfile { ProfileName = "Custom Profile", DateCreated = "2024-03-05", LastUpdated = "2024-07-01" });
+            InputProfiles.Add(new InputProfile { Id = 1 ,ProfileName = "FPS Profile", DateCreated = "2024-01-12", LastUpdated = "2024-05-01" });
+            InputProfiles.Add(new InputProfile { Id = 2, ProfileName = "Racing Profile", DateCreated = "2024-02-15", LastUpdated = "2024-06-10" });
+            InputProfiles.Add(new InputProfile { Id = 3, ProfileName = "Custom Profile", DateCreated = "2024-03-05", LastUpdated = "2024-07-01" });
 
             Controllers.Add(new DeviceProfile { Id = 1, DeviceName = "Alice iPhone 12", Status = "🔗", SelectedProfile = InputProfiles[0], SelectedProfileNum = "Xbox emulation" });
             Controllers.Add(new DeviceProfile { Id = 2, DeviceName = "Bob iPhone 14", Status = "🔗", SelectedProfile = InputProfiles[1], SelectedProfileNum = "Keyboard n Mouse" });

@@ -86,15 +86,52 @@
                     </TabItem>
 
                 <!-- Profiles Tab -->
-                <TabItem Header="Input Profile">
-                   <Grid Margin="10">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
+                    <TabItem Header="Input Profile">
+                        <Grid Margin="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
 
-        <!-- Header -->
+                            <!-- Headers -->
+                            <Grid Grid.Row="0" Margin="0,0,0,5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="40"/>
+                                    <ColumnDefinition Width="250"/>
+                                    <ColumnDefinition Width="300"/>
+                                    <ColumnDefinition Width="300"/>
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Text="ID" FontWeight="Bold"/>
+                                <TextBlock Text="Profile Name" Grid.Column="1" FontWeight="Bold"/>
+                                <TextBlock Text="Date Created" Grid.Column="2" FontWeight="Bold"/>
+                                <TextBlock Text="Last Updated" Grid.Column="3" FontWeight="Bold"/>
+                            </Grid>
+
+                            <!-- Rows: USE ItemsControl -->
+                            <ItemsControl Grid.Row="1" ItemsSource="{Binding InputProfiles}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid Margin="0,2">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="40"/>
+                                                <ColumnDefinition Width="250"/>
+                                                <ColumnDefinition Width="300"/>
+                                                <ColumnDefinition Width="300"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <TextBlock Text="{Binding Id}" Grid.Column="0"/>
+                                            <TextBlock Text="{Binding ProfileName}" Grid.Column="1"/>
+                                            <TextBlock Text="{Binding DateCreated}" Grid.Column="2"/>
+                                            <TextBlock Text="{Binding LastUpdated}" Grid.Column="3"/>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+
+
+                            <!-- Header -->
         <Grid Grid.Row="0" Margin="0,0,0,5">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="40"/>
