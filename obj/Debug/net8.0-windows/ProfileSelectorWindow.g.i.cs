@@ -61,7 +61,7 @@ namespace FYP {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/FYP;V1.0.0.0;component/profileselectorwindow.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/FYP;component/profileselectorwindow.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\ProfileSelectorWindow.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

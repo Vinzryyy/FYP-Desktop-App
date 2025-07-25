@@ -60,7 +60,7 @@ namespace FYP {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/FYP;V1.0.0.0;component/updateprofilewindow.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/FYP;component/updateprofilewindow.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\UpdateProfileWindow.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

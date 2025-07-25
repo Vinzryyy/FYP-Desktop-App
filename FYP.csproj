@@ -6,12 +6,23 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>Image\favicon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="CONTROLLER.png" />
     <None Remove="Image\Background FYP.jpg" />
     <None Remove="Image\CONTROLLER.png" />
+    <None Remove="Image\controllerbackground.jpg" />
+    <None Remove="Image\favicon.ico" />
+    <None Remove="Image\Profilebackground.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Image\controllerbackground.jpg" />
+    <Content Include="Image\favicon.ico" />
+    <Resource Include="Image\Profilebackground.png" />
+    <Resource Include="Image\scan_background.jpg" />
   </ItemGroup>
 
   <ItemGroup>

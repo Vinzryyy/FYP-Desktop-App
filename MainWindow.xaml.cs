@@ -323,8 +323,8 @@ namespace FYP
             InputProfiles.Add(new InputProfile { Id = 2, ProfileName = "Racing Profile", DateCreated = "2024-02-15", LastUpdated = "2024-06-10" });
             InputProfiles.Add(new InputProfile { Id = 3, ProfileName = "Custom Profile", DateCreated = "2024-03-05", LastUpdated = "2024-07-01" });
 
-            Controllers.Add(new DeviceProfile { Id = 1, DeviceName = "Alice iPhone 12", Status = "🔗", SelectedProfile = InputProfiles[0], SelectedProfileNum = "Xbox emulation" });
-            Controllers.Add(new DeviceProfile { Id = 2, DeviceName = "Bob iPhone 14", Status = "🔗", SelectedProfile = InputProfiles[1], SelectedProfileNum = "Keyboard n Mouse" });
+            Controllers.Add(new DeviceProfile { Id = 1, DeviceName = "Alice iPhone 12", Status = "🔗", SelectedProfile = InputProfiles[0], SelectedProfileNum = SelectedProfileOptions[1] });
+            Controllers.Add(new DeviceProfile { Id = 2, DeviceName = "Bob iPhone 14", Status = "🔗", SelectedProfile = InputProfiles[1], SelectedProfileNum = SelectedProfileOptions[2] });
             // ✅ Now populate controllers
         }
 
@@ -457,6 +457,30 @@ namespace FYP
             var firebase = new FirebaseService();
             await firebase.SaveProfileAsync(profile);
         }
+        private void DeleteDevice_Click(object sender, RoutedEventArgs e)
+{
+    var button = sender as Button;
+    if (button?.DataContext is DeviceProfile profileToDelete)
+    {
+        if (MessageBox.Show($"Are you sure you want to delete '{profileToDelete.DeviceName}'?", "Confirm Delete", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+        {
+            Controllers.Remove(profileToDelete);
+        }
+    }
+}
+
+private void UpdateDevice_Click(object sender, RoutedEventArgs e)
+{
+    var button = sender as Button;
+    if (button?.DataContext is DeviceProfile deviceToUpdate)
+    {
+        // Example update logic
+        deviceToUpdate.LastUpdated = DateTime.Now.ToString("yyyy-MM-dd");
+        deviceToUpdate.NeedsUpdate = false;
+
+        MessageBox.Show($"'{deviceToUpdate.DeviceName}' updated successfully.", "Update");
+    }
+}
 
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -468,6 +492,11 @@ namespace FYP
             DateCreated = DateTime.Now.ToString("yyyy-MM-dd"),
             // etc.
         };
+        public List<string> SelectedProfileOptions = new(){
+        "Keyboard n Mouse",
+        "Xbox emulation",
+        "DS4 emulation"
+            };
 
         // Cleanup when window is closing
         protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
@@ -484,6 +513,7 @@ namespace FYP
             base.OnClosing(e);
         }
     }
+
 
     public class InputPacket
     {

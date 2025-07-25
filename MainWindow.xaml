@@ -7,197 +7,213 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="600" Width="1000">
     <Grid>
-        <Image Source="Image/Background FYP.jpg" Stretch="UniformToFill" Panel.ZIndex="0"/>
+        <Image Source="Image/Background FYP.jpg" Stretch="Fill" Panel.ZIndex="0"/>
         <DockPanel Panel.ZIndex="1">
+            
             <!-- Main Content -->
         <Grid>
             <TabControl SelectionChanged="TabControl_SelectionChanged">
                 <!-- Controller Tab -->
+                
                 <TabItem Header="Controller" Margin="-3,0,0,0">
+
                         <Grid Margin="10">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
+                            <Image Source="Image/controllerbackground.jpg" Stretch="Fill" Panel.ZIndex="0" Opacity="0.3"/>
+                            <Grid Panel.ZIndex="1">
 
-                            <!-- Header Row -->
-                            <Grid Grid.Row="0" Margin="0,0,0,5">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="30"/>
-                                    <ColumnDefinition Width="180"/>
-                                    <ColumnDefinition Width="80"/>
-                                    <ColumnDefinition Width="200"/>
-                                    <ColumnDefinition Width="200"/>
-                                    <ColumnDefinition Width="120"/>
-                                    <ColumnDefinition Width="70"/>
-                                    <ColumnDefinition Width="70"/>
-                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
 
-                                <TextBlock Text="ID" FontWeight="Bold"/>
-                                <TextBlock Text="Name" Grid.Column="1" FontWeight="Bold"/>
-                                <TextBlock Text="Status" Grid.Column="2" FontWeight="Bold"/>
-                                <TextBlock Text="Selected Input Profile" Grid.Column="3" FontWeight="Bold" HorizontalAlignment="Center"/>
-                                <TextBlock Text="Selected Profile Number" Grid.Column="4" FontWeight="Bold" HorizontalAlignment="Center"/>
-                                <TextBlock Text="Remove Device" Grid.Column="5" FontWeight="Bold" HorizontalAlignment="Center"/>
-                                <TextBlock Text="Linked" Grid.Column="6" FontWeight="Bold" HorizontalAlignment="Center"/>
-                                <TextBlock Text="Updates" Grid.Column="7" FontWeight="Bold" HorizontalAlignment="Center"/>
+                                <!-- Header Row -->
+                                <Grid Grid.Row="0" Margin="0,0,0,5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="30"/>
+                                        <ColumnDefinition Width="180"/>
+                                        <ColumnDefinition Width="80"/>
+                                        <ColumnDefinition Width="200"/>
+                                        <ColumnDefinition Width="200"/>
+                                        <ColumnDefinition Width="120"/>
+                                        <ColumnDefinition Width="70"/>
+                                        <ColumnDefinition Width="70"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock Text="ID" FontWeight="Bold"/>
+                                    <TextBlock Text="Name" Grid.Column="1" FontWeight="Bold"/>
+                                    <TextBlock Text="Status" Grid.Column="2" FontWeight="Bold"/>
+                                    <TextBlock Text="Selected Input Profile" Grid.Column="3" FontWeight="Bold" HorizontalAlignment="Center"/>
+                                    <TextBlock Text="Selected Profile Number" Grid.Column="4" FontWeight="Bold" HorizontalAlignment="Center"/>
+                                    <TextBlock Text="Remove Device" Grid.Column="5" FontWeight="Bold" HorizontalAlignment="Center"/>
+                                    <TextBlock Text="Linked" Grid.Column="6" FontWeight="Bold" HorizontalAlignment="Center"/>
+                                    <TextBlock Text="Updates" Grid.Column="7" FontWeight="Bold" HorizontalAlignment="Center"/>
+                                </Grid>
+
+
+                                <!-- Dynamic Rows -->
+                                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                                    <ItemsControl ItemsSource="{Binding Controllers}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Grid Margin="0,2">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="30"/>
+                                                        <ColumnDefinition Width="180"/>
+                                                        <ColumnDefinition Width="80"/>
+                                                        <ColumnDefinition Width="200"/>
+                                                        <ColumnDefinition Width="200"/>
+                                                        <ColumnDefinition Width="120"/>
+                                                        <ColumnDefinition Width="70"/>
+                                                        <ColumnDefinition Width="70"/>
+                                                    </Grid.ColumnDefinitions>
+
+                                                    <TextBlock Text="{Binding Id}" Grid.Column="0"/>
+                                                    <TextBlock Text="{Binding DeviceName}" Grid.Column="1"/>
+                                                    <TextBlock Text="{Binding Status}" Grid.Column="2"/>
+
+                                                    <ComboBox Grid.Column="3"  ItemsSource="{Binding DataContext.InputProfiles, RelativeSource={RelativeSource AncestorType=Window}}" SelectedItem="{Binding SelectedProfile}"  DisplayMemberPath="ProfileName" Width="170" HorizontalAlignment="Center"/>
+
+                                                    <ComboBox Grid.Column="4" SelectedItem="{Binding SelectedProfileNum}" Width="170" HorizontalAlignment="Center">
+                                                        <ComboBoxItem Content="Profile 1"/>
+                                                        <ComboBoxItem Content="Profile 2"/>
+                                                        <ComboBoxItem Content="Profile 3"/>
+                                                    </ComboBox>
+
+                                                    <Button Grid.Column="5" Content="Delete" Width="60" Margin="5,0" Click="DeleteDevice_Click"/>
+
+                                                    <Rectangle Grid.Column="6" Fill="{Binding LinkedBrush}" Width="30" Height="15" Margin="15,4"/>
+
+                                                    <Button Grid.Column="7" Content="Update" Width="60" Margin="5,0" Click="UpdateDevice_Click"/>
+
+                                                </Grid>
+
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </ScrollViewer>
                             </Grid>
-
-                            <!-- Dynamic Rows -->
-                            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
-                                <ItemsControl ItemsSource="{Binding Controllers}">
-                                    <ItemsControl.ItemTemplate>
-                                        <DataTemplate>
-                                            <Grid Margin="0,2">
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="30"/>
-                                                    <ColumnDefinition Width="180"/>
-                                                    <ColumnDefinition Width="80"/>
-                                                    <ColumnDefinition Width="200"/>
-                                                    <ColumnDefinition Width="200"/>
-                                                    <ColumnDefinition Width="120"/>
-                                                    <ColumnDefinition Width="70"/>
-                                                    <ColumnDefinition Width="70"/>
-                                                </Grid.ColumnDefinitions>
-
-                                                <TextBlock Text="{Binding Id}" Grid.Column="0"/>
-                                                <TextBlock Text="{Binding DeviceName}" Grid.Column="1"/>
-                                                <TextBlock Text="{Binding Status}" Grid.Column="2"/>
-
-                                                <ComboBox Grid.Column="3"  ItemsSource="{Binding DataContext.InputProfiles, RelativeSource={RelativeSource AncestorType=Window}}" SelectedItem="{Binding SelectedProfile}"  DisplayMemberPath="ProfileName" Width="170" HorizontalAlignment="Center"/>
-
-                                                <ComboBox Grid.Column="4" SelectedItem="{Binding SelectedProfileNum}" Width="170" HorizontalAlignment="Center">
-                                                    <ComboBoxItem Content="Keyboard n Mouse"/>
-                                                    <ComboBoxItem Content="Xbox emulation"/>
-                                                    <ComboBoxItem Content="DS4 emulation"/>
-                                                </ComboBox>
-
-                                                <Button Grid.Column="5" Content="Delete" Width="60" Margin="5,0" />
-
-                                                <Rectangle Grid.Column="6" Fill="{Binding LinkedBrush}" Width="30" Height="15" Margin="15,4"/>
-
-                                                <Button Grid.Column="7" Content="Update" Width="60" Margin="5,0" />
-                                            </Grid>
-                                        </DataTemplate>
-                                    </ItemsControl.ItemTemplate>
-                                </ItemsControl>
-                            </ScrollViewer>
                         </Grid>
                     </TabItem>
 
                 <!-- Profiles Tab -->
                     <TabItem Header="Input Profile">
                         <Grid Margin="10">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
+                            <Image Source="/Image/Profilebackground.png" Stretch="Fill" Panel.ZIndex="0" Opacity="0.3"/>
+                            <Grid Panel.ZIndex="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
 
-                            <!-- Headers -->
-                            <Grid Grid.Row="0" Margin="0,0,0,5">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="40"/>
-                                    <ColumnDefinition Width="250"/>
-                                    <ColumnDefinition Width="300"/>
-                                    <ColumnDefinition Width="300"/>
-                                </Grid.ColumnDefinitions>
+                                <!-- Headers -->
+                                <Grid Grid.Row="0" Margin="0,0,0,5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="40"/>
+                                        <ColumnDefinition Width="250"/>
+                                        <ColumnDefinition Width="300"/>
+                                        <ColumnDefinition Width="300"/>
+                                    </Grid.ColumnDefinitions>
 
-                                <TextBlock Text="ID" FontWeight="Bold"/>
-                                <TextBlock Text="Profile Name" Grid.Column="1" FontWeight="Bold"/>
-                                <TextBlock Text="Date Created" Grid.Column="2" FontWeight="Bold"/>
-                                <TextBlock Text="Last Updated" Grid.Column="3" FontWeight="Bold"/>
+                                    <TextBlock Text="ID" FontWeight="Bold"/>
+                                    <TextBlock Text="Profile Name" Grid.Column="1" FontWeight="Bold"/>
+                                    <TextBlock Text="Date Created" Grid.Column="2" FontWeight="Bold"/>
+                                    <TextBlock Text="Last Updated" Grid.Column="3" FontWeight="Bold"/>
+                                </Grid>
+
+                                <!-- Rows: USE ItemsControl -->
+                                <ItemsControl Grid.Row="1" ItemsSource="{Binding InputProfiles}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid Margin="0,2">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="40"/>
+                                                    <ColumnDefinition Width="250"/>
+                                                    <ColumnDefinition Width="300"/>
+                                                    <ColumnDefinition Width="300"/>
+                                                </Grid.ColumnDefinitions>
+
+                                                <TextBlock Text="{Binding Id}" Grid.Column="0"/>
+                                                <TextBlock Text="{Binding ProfileName}" Grid.Column="1"/>
+                                                <TextBlock Text="{Binding DateCreated}" Grid.Column="2"/>
+                                                <TextBlock Text="{Binding LastUpdated}" Grid.Column="3"/>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+
+
+                                <!-- Header -->
+                                <Grid Grid.Row="0" Margin="0,0,0,5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="40"/>
+                                        <ColumnDefinition Width="250"/>
+                                        <ColumnDefinition Width="300"/>
+                                        <ColumnDefinition Width="300"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock Text="ID" FontWeight="Bold"/>
+                                    <TextBlock Text="Profile Name" Grid.Column="1" FontWeight="Bold"/>
+                                    <TextBlock Text="Date Created" Grid.Column="2" FontWeight="Bold"/>
+                                    <TextBlock Text="Last Updated" Grid.Column="3" FontWeight="Bold"/>
+                                </Grid>
+
+                                <!-- Example rows: you can replace this with an ItemsControl later -->
+                                <ItemsControl Grid.Row="1" ItemsSource="{Binding InputProfiles}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid Margin="0,2">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="40"/>
+                                                    <ColumnDefinition Width="250"/>
+                                                    <ColumnDefinition Width="300"/>
+                                                    <ColumnDefinition Width="300"/>
+                                                </Grid.ColumnDefinitions>
+
+                                                <TextBlock Text="{Binding Id}" Grid.Column="0"/>
+                                                <TextBlock Text="{Binding ProfileName}" Grid.Column="1"/>
+                                                <TextBlock Text="{Binding DateCreated}" Grid.Column="2"/>
+                                                <TextBlock Text="{Binding LastUpdated}" Grid.Column="3"/>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+
+                                <!-- Action buttons -->
+                                <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,10,0,0">
+                                    <Button Content="Create Input Profile" Width="150" Margin="0,0,10,0" Click="CreateInputProfileButton_Click"/>
+                                    <Button Content="Edit Input Profile" Width="150" Click="UpdateInputProfileButton_Click"/>
+                                </StackPanel>
                             </Grid>
-
-                            <!-- Rows: USE ItemsControl -->
-                            <ItemsControl Grid.Row="1" ItemsSource="{Binding InputProfiles}">
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <Grid Margin="0,2">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="40"/>
-                                                <ColumnDefinition Width="250"/>
-                                                <ColumnDefinition Width="300"/>
-                                                <ColumnDefinition Width="300"/>
-                                            </Grid.ColumnDefinitions>
-
-                                            <TextBlock Text="{Binding Id}" Grid.Column="0"/>
-                                            <TextBlock Text="{Binding ProfileName}" Grid.Column="1"/>
-                                            <TextBlock Text="{Binding DateCreated}" Grid.Column="2"/>
-                                            <TextBlock Text="{Binding LastUpdated}" Grid.Column="3"/>
-                                        </Grid>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-
-
-                            <!-- Header -->
-        <Grid Grid.Row="0" Margin="0,0,0,5">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="40"/>
-                <ColumnDefinition Width="250"/>
-                <ColumnDefinition Width="300"/>
-                <ColumnDefinition Width="300"/>
-            </Grid.ColumnDefinitions>
-
-            <TextBlock Text="ID" FontWeight="Bold"/>
-            <TextBlock Text="Profile Name" Grid.Column="1" FontWeight="Bold"/>
-            <TextBlock Text="Date Created" Grid.Column="2" FontWeight="Bold"/>
-            <TextBlock Text="Last Updated" Grid.Column="3" FontWeight="Bold"/>
-        </Grid>
-
-        <!-- Example rows: you can replace this with an ItemsControl later -->
-                            <ItemsControl Grid.Row="1" ItemsSource="{Binding InputProfiles}">
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <Grid Margin="0,2">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="40"/>
-                                                <ColumnDefinition Width="250"/>
-                                                <ColumnDefinition Width="300"/>
-                                                <ColumnDefinition Width="300"/>
-                                            </Grid.ColumnDefinitions>
-
-                                            <TextBlock Text="{Binding Id}" Grid.Column="0"/>
-                                            <TextBlock Text="{Binding ProfileName}" Grid.Column="1"/>
-                                            <TextBlock Text="{Binding DateCreated}" Grid.Column="2"/>
-                                            <TextBlock Text="{Binding LastUpdated}" Grid.Column="3"/>
-                                        </Grid>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-
-                            <!-- Action buttons -->
-        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,10,0,0">
-            <Button Content="Create Input Profile" Width="150" Margin="0,0,10,0" Click="CreateInputProfileButton_Click"/>
-            <Button Content="Edit Input Profile" Width="150" Click="UpdateInputProfileButton_Click"/>
-        </StackPanel>
-    </Grid>
-                </TabItem>
+                        </Grid>
+                    </TabItem>
 
                 <!-- Scan Tab -->
                 <TabItem Header="Scan">
                         <Grid Margin="10">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="100"/>
-                                <!-- For status log -->
-                            </Grid.RowDefinitions>
+                            <Image Source="/Image/scan_background.jpg" Stretch="Fill" Panel.ZIndex="0" Opacity="0.3"/>
+                            <Grid Panel.ZIndex="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="100"/>
+                                    <!-- For status log -->
+                                </Grid.RowDefinitions>
 
-                            <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="8" Padding="10" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <Image x:Name="QrDisplayImage" Stretch="None"/>
-                            </Border>
+                                <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="8" Padding="10" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <Image x:Name="QrDisplayImage" Stretch="None"/>
+                                </Border>
 
-                            <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0,10,0,0" HorizontalAlignment="Center">
-                                <Button Content="Generate New QR Code" Click="GenerateQrCode_Click" Margin="5"/>
-                                <Button Content="Manual Login" Click="ManualLogin_Click" Margin="5"/>
-                                <Button Content="Save Profile" Click="SaveProfileButton_Click" Margin="5"/>
-                            </StackPanel>
+                                <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0,10,0,0" HorizontalAlignment="Center">
+                                    <Button Content="Generate New QR Code" Click="GenerateQrCode_Click" Margin="5"/>
+                                    <Button Content="Manual Login" Click="ManualLogin_Click" Margin="5"/>
+                                    <Button Content="Save Profile" Click="SaveProfileButton_Click" Margin="5"/>
+                                </StackPanel>
 
-                            <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" Margin="0,10,0,0">
-                                <TextBlock x:Name="QrStatusText" Text="Ready to generate QR code." TextWrapping="Wrap"/>
-                            </ScrollViewer>
+                                <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" Margin="0,10,0,0">
+                                    <TextBlock x:Name="QrStatusText" Text="Ready to generate QR code." TextWrapping="Wrap"/>
+                                </ScrollViewer>
+                            </Grid>
                         </Grid>
                     </TabItem>
             </TabControl>

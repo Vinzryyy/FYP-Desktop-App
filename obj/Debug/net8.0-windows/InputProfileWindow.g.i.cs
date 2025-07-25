@@ -60,7 +60,7 @@ namespace FYP {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/FYP;V1.0.0.0;component/inputprofilewindow.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/FYP;component/inputprofilewindow.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\InputProfileWindow.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

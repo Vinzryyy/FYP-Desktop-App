@@ -9,5 +9,6 @@
 //------------------------------------------------------------------------------
 
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("mouse-keyboard-hook-logo.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("image/favicon.ico")]
 
 
