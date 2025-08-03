@@ -197,12 +197,7 @@
 
                             <StackPanel Grid.Column="0" Margin="5">
                                 <GroupBox Header="How to Connect" Margin="0,0,0,10">
-                                    <TextBlock TextWrapping="Wrap" Padding="5">
-                                        <Run Text="QR Code Pairing: "/><LineBreak/>
-                                        <Run Text="Scan the QR code with your mobile device. "/><LineBreak/>
-                                        <Run/><LineBreak/><Run Text="Manual Connection: "/><LineBreak/>
-                                        <Run Text="Enter the session details in your mobile device."/>     
-                                    </TextBlock>
+                                    <TextBlock TextWrapping="Wrap" Padding="5"><Run Text="QR Code Pairing: "/><LineBreak/><Run Text="Scan the QR code with your mobile devices. "/><LineBreak/><Run/><LineBreak/><Run Text="Manual Connection: "/><LineBreak/><Run Text="Enter the session details in your mobile device."/></TextBlock>
                                 </GroupBox>
 
                                 <GroupBox Header="Session Information">
