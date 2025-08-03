@@ -187,36 +187,51 @@
                             </Grid>
                         </Grid>
                     </TabItem>
-
-                <!-- Scan Tab -->
-                <TabItem Header="Scan">
+                    <!--QR Code Pairing Tab-->
+                    <TabItem Header="Pairing">
                         <Grid Margin="10">
-                            <Image Source="/Image/scan_background.jpg" Stretch="Fill" Panel.ZIndex="0" Opacity="0.3"/>
-                            <Grid Panel.ZIndex="1">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="*"/>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="100"/>
-                                    <!-- For status log -->
-                                </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*" />
+                                <ColumnDefinition Width="3*" />
+                            </Grid.ColumnDefinitions>
 
-                                <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="8" Padding="10" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                    <Image x:Name="QrDisplayImage" Stretch="None"/>
-                                </Border>
+                            <StackPanel Grid.Column="0" Margin="5">
+                                <GroupBox Header="How to Connect" Margin="0,0,0,10">
+                                    <TextBlock TextWrapping="Wrap" Padding="5">
+                                        <Run Text="QR Code Pairing: "/><LineBreak/>
+                                        <Run Text="Scan the QR code with your mobile device. "/><LineBreak/>
+                                        <Run/><LineBreak/><Run Text="Manual Connection: "/><LineBreak/>
+                                        <Run Text="Enter the session details in your mobile device."/>     
+                                    </TextBlock>
+                                </GroupBox>
 
-                                <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0,10,0,0" HorizontalAlignment="Center">
-                                    <Button Content="Generate New QR Code" Click="GenerateQrCode_Click" Margin="5"/>
-                                    <Button Content="Manual Login" Click="ManualLogin_Click" Margin="5"/>
-                                    <Button Content="Save Profile" Click="SaveProfileButton_Click" Margin="5"/>
-                                </StackPanel>
+                                <GroupBox Header="Session Information">
+                                    <StackPanel Margin="5">
+                                        <TextBox x:Name="SessionInfo"
+                          IsReadOnly="True"
+                          BorderThickness="0"
+                          Background="Transparent"
+                          HorizontalAlignment="Left"
+                          Width="300"
+                          Cursor="IBeam"/>
+                                    </StackPanel>
+                                </GroupBox>
+                            </StackPanel>
 
-                                <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" Margin="0,10,0,0">
-                                    <TextBlock x:Name="QrStatusText" Text="Ready to generate QR code." TextWrapping="Wrap"/>
-                                </ScrollViewer>
-                            </Grid>
+                            <GroupBox Header="Session QR Code" Grid.Column="1">
+                                <DockPanel LastChildFill="True" Margin="5">
+                                    <Button Content="Generate New QR Code" DockPanel.Dock="Bottom" Margin="5"
+                                            Click="GenerateNewQrCode_Click" Height="20" Width="150"/>
+
+                                    <Viewbox Stretch="Uniform">
+                                        <Image x:Name="QrCodeImage" Stretch="Uniform"/>
+                                    </Viewbox>
+                                </DockPanel>
+                            </GroupBox>
                         </Grid>
                     </TabItem>
-            </TabControl>
+
+                </TabControl>
         </Grid>
     </DockPanel>
     </Grid>

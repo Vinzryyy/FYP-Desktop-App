@@ -9,10 +9,10 @@
       "FYP/1.0.0": {
         "dependencies": {
           "Fleck": "1.2.0",
+          "InputSimulatorPlus": "1.0.7",
           "MaterialDesignColors": "5.2.1",
           "MaterialDesignThemes": "5.2.1",
-          "QRCoder": "1.6.0",
-          "WindowsInput": "6.4.1"
+          "QRCoder": "1.6.0"
         },
         "runtime": {
           "FYP.dll": {}
@@ -23,6 +23,14 @@
           "lib/netcoreapp2.0/Fleck.dll": {
             "assemblyVersion": "1.2.0.0",
             "fileVersion": "1.2.0.0"
+          }
+        }
+      },
+      "InputSimulatorPlus/1.0.7": {
+        "runtime": {
+          "lib/net20/WindowsInput.dll": {
+            "assemblyVersion": "1.0.6.0",
+            "fileVersion": "1.0.6.0"
           }
         }
       },
@@ -70,14 +78,6 @@
         "dependencies": {
           "Microsoft.Win32.SystemEvents": "6.0.0"
         }
-      },
-      "WindowsInput/6.4.1": {
-        "runtime": {
-          "lib/net6.0-windows7.0/WindowsInput.dll": {
-            "assemblyVersion": "6.4.1.0",
-            "fileVersion": "6.4.1.0"
-          }
-        }
       }
     }
   },
@@ -93,6 +93,13 @@
       "sha512": "sha512-bPLXn6QbLAFoviur6XbrKB0Zn6x04E8VibHXyHZeJsoC7bkUl5DVtzM5cZgDuqHkIrBqAXJyTNJwSNIc6wBJ2Q==",
       "path": "fleck/1.2.0",
       "hashPath": "fleck.1.2.0.nupkg.sha512"
+    },
+    "InputSimulatorPlus/1.0.7": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-mOJt32qhvp3knYB8EEOh6/9cwZEwQV2BRD3DGZZ8guFg8vOt+xq6QGEt5eFjTkG+VWgVDMPVdCAIE4gnfab+3Q==",
+      "path": "inputsimulatorplus/1.0.7",
+      "hashPath": "inputsimulatorplus.1.0.7.nupkg.sha512"
     },
     "MaterialDesignColors/5.2.1": {
       "type": "package",
@@ -135,13 +142,6 @@
       "sha512": "sha512-NfuoKUiP2nUWwKZN6twGqXioIe1zVD0RIj2t976A+czLHr2nY454RwwXs6JU9Htc6mwqL6Dn/nEL3dpVf2jOhg==",
       "path": "system.drawing.common/6.0.0",
       "hashPath": "system.drawing.common.6.0.0.nupkg.sha512"
-    },
-    "WindowsInput/6.4.1": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-wfg9uu5xDvBcaNqvR1ZTFQqBf4bKzkxdd5WviTZPy4cAywEzLzofuYswZB3nGIEnnlwGLBGSgrNOEZH/w8JI9w==",
-      "path": "windowsinput/6.4.1",
-      "hashPath": "windowsinput.6.4.1.nupkg.sha512"
     }
   }
 }

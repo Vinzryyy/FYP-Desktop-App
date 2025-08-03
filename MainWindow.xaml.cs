@@ -5,6 +5,8 @@ using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using FYP.ReceiverApp;
+using ReceiverApp;
 using System.Windows;
 using System.Collections.ObjectModel;
 using System.Drawing;
@@ -27,31 +29,12 @@ namespace FYP
 {
     public partial class MainWindow : Window
     {
-
+        private readonly Action clientPairedHandler;
+        private readonly ObservableCollection<ConnectedDevice> connectedDevices = new();
+        private int deviceCounter = 1;
         private int nextInputProfileId = 4;
 
-        // P/Invoke declarations for Windows API
-        [DllImport("user32.dll")]
-        private static extern void keybd_event(byte bVk, byte bScan, uint dwFlags, UIntPtr dwExtraInfo);
 
-        [DllImport("user32.dll")]
-        private static extern void mouse_event(uint dwFlags, uint dx, uint dy, uint dwData, UIntPtr dwExtraInfo);
-
-        // Constants for key events
-        private const uint KEYEVENTF_KEYDOWN = 0x0000;
-        private const uint KEYEVENTF_KEYUP = 0x0002;
-
-        // Constants for mouse events
-        private const uint MOUSEEVENTF_LEFTDOWN = 0x0002;
-        private const uint MOUSEEVENTF_LEFTUP = 0x0004;
-        private const uint MOUSEEVENTF_RIGHTDOWN = 0x0008;
-        private const uint MOUSEEVENTF_RIGHTUP = 0x0010;
-
-        // Virtual key codes
-        private const byte VK_W = 0x57;
-        private const byte VK_A = 0x41;
-        private const byte VK_S = 0x53;
-        private const byte VK_D = 0x44;
 
         //
         private WebSocketServer server;
@@ -63,90 +46,13 @@ namespace FYP
 
         private void SimulateInput(string mappedAction, string state)
         {
-            switch (state)
+            if (!string.IsNullOrWhiteSpace(mappedAction))
             {
-                case "down":
-                case "hold":
-                    SimulateKeyPress(mappedAction);
-                    break;
-
-                case "up":
-                    SimulateKeyRelease(mappedAction);
-                    break;
-
-                default:
-                    Console.WriteLine($"Unknown state: {state}");
-                    break;
+                ActionExecutor.Execute(mappedAction, state);
             }
         }
 
-        private void SimulateKeyPress(string action)
-        {
-            switch (action)
-            {
-                case "Key_W":
-                    keybd_event(VK_W, 0, KEYEVENTF_KEYDOWN, UIntPtr.Zero);
-                    break;
-                case "Key_A":
-                    keybd_event(VK_A, 0, KEYEVENTF_KEYDOWN, UIntPtr.Zero);
-                    break;
-                case "Key_S":
-                    keybd_event(VK_S, 0, KEYEVENTF_KEYDOWN, UIntPtr.Zero);
-                    break;
-                case "Key_D":
-                    keybd_event(VK_D, 0, KEYEVENTF_KEYDOWN, UIntPtr.Zero);
-                    break;
-                case "LeftClick":
-                    mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, UIntPtr.Zero);
-                    break;
-                case "RightClick":
-                    mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, UIntPtr.Zero);
-                    break;
-                default:
-                    Console.WriteLine($"Unknown press action: {action}");
-                    break;
-            }
-        }
 
-        private void SimulateKeyRelease(string action)
-        {
-            switch (action)
-            {
-                case "Key_W":
-                    keybd_event(VK_W, 0, KEYEVENTF_KEYUP, UIntPtr.Zero);
-                    break;
-                case "Key_A":
-                    keybd_event(VK_A, 0, KEYEVENTF_KEYUP, UIntPtr.Zero);
-                    break;
-                case "Key_S":
-                    keybd_event(VK_S, 0, KEYEVENTF_KEYUP, UIntPtr.Zero);
-                    break;
-                case "Key_D":
-                    keybd_event(VK_D, 0, KEYEVENTF_KEYUP, UIntPtr.Zero);
-                    break;
-                case "LeftClick":
-                    mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, UIntPtr.Zero);
-                    break;
-                case "RightClick":
-                    mouse_event(MOUSEEVENTF_RIGHTUP, 0, 0, 0, UIntPtr.Zero);
-                    break;
-                default:
-                    Console.WriteLine($"Unknown release action: {action}");
-                    break;
-            }
-        }
-
-        // Maps input IDs to actions using the loaded JSON mapping
-        private string MapInputIdToAction(string inputId)
-        {
-            if (inputMap.TryGetValue(inputId.ToLower(), out string mappedAction))
-            {
-                return mappedAction;
-            }
-
-            Console.WriteLine($"No mapping found for input ID: {inputId}");
-            return null;
-        }
 
         private void LoadInputMappings()
         {
@@ -231,64 +137,70 @@ namespace FYP
             var window = new InputProfileWindow();
             window.Show();
         }
-        private void ManualLogin_Click(object sender, RoutedEventArgs e)
+        private BitmapImage ConvertToBitmapImage(byte[] imageData)
         {
-            try
-            {
-                string localIp = GetLocalIPAddress();
-                string serverInfo = $"WebSocket Server is running at: ws://{localIp}:8181";
-
-                MessageBox.Show(serverInfo, "Manual Login Info", MessageBoxButton.OK, MessageBoxImage.Information);
-                QrStatusText.Text += $"\n{serverInfo}";
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error retrieving server info: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            var bi = new BitmapImage();
+            using var ms = new MemoryStream(imageData);
+            bi.BeginInit();
+            bi.CacheOption = BitmapCacheOption.OnLoad;
+            bi.StreamSource = ms;
+            bi.EndInit();
+            bi.Freeze();
+            return bi;
         }
-        private void GenerateQrCode_Click(object sender, RoutedEventArgs e)
+        protected override void OnClosed(EventArgs e)
         {
-            try
-            {
-                // Generate QR code with local IP address
-                string localIp = GetLocalIPAddress();
-                string qrData = $"{localIp}"; // Include port for clarity
+            base.OnClosed(e);
+            ReceiverServer.OnClientPaired -= clientPairedHandler;
+        }
+        public class ConnectedDevice
+        {
+            public string PlayerId { get; set; } = "";
+            public string DisplayName => $"Connected Device {PlayerId}";
+        }
+      
+      
+        private void GenerateNewQrCode_Click(object sender, RoutedEventArgs e)
+        {
+            GenerateAndShowQrCode();
+        }
+        private void GenerateAndShowQrCode()
+        {
+            // Generatae a new token
+            var token = Guid.NewGuid().ToString("N").Substring(0, 12);
 
-                using (QRCodeGenerator qrGenerator = new QRCodeGenerator())
-                using (QRCodeData qrCodeData = qrGenerator.CreateQrCode(qrData, QRCodeGenerator.ECCLevel.Q))
-                using (QRCode qrCode = new QRCode(qrCodeData))
-                using (Bitmap qrBitmap = qrCode.GetGraphic(20))
-                {
-                    QrDisplayImage.Source = ConvertBitmapToBitmapImage(qrBitmap);
-                    QrStatusText.Text = $"QR code generated.\nWebSocket Server: {localIp}\nWaiting for connections...";
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Failed to generate QR code: {ex.Message}");
-            }
+            // Build URL
+            string localIp = GetLocalIPAddress();
+            var url = $"ws://{localIp}:8181?pair={token}";
+
+            // Display Session Token
+            SessionInfo.Text = url;
+
+            // Generate QR Code as byte[]
+            using var qrGen = new QRCodeGenerator();
+            var qrData = qrGen.CreateQrCode(url, QRCodeGenerator.ECCLevel.Q);
+            var pngQr = new PngByteQRCode(qrData);
+            var qrBytes = pngQr.GetGraphic(20);
+
+            // Convert to BitmapImage for UI
+            QrCodeImage.Source = ConvertToBitmapImage(qrBytes);
+
+            // Register token to server (playerId will be derived on connect)
+            var nextPlayerId = $"Player{deviceCounter}";
+            ReceiverServer.AddToken(token, nextPlayerId);
         }
 
         // Method to get local IP address
         private string GetLocalIPAddress()
         {
-            try
+            foreach (var ip in System.Net.Dns.GetHostEntry(System.Net.Dns.GetHostName()).AddressList)
             {
-                var host = Dns.GetHostEntry(Dns.GetHostName());
-                foreach (var ip in host.AddressList)
+                if (ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
                 {
-                    if (ip.AddressFamily == AddressFamily.InterNetwork)
-                    {
-                        return ip.ToString(); // IPv4
-                    }
+                    return ip.ToString();
                 }
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error getting local IP: {ex.Message}");
-            }
-
-            return "127.0.0.1"; // Fallback to localhost
+            throw new Exception("No network adapters with an IPv4 address found.");
         }
 
         private BitmapImage ConvertBitmapToBitmapImage(Bitmap bitmap)
@@ -315,10 +227,47 @@ namespace FYP
             InitializeComponent();
             this.DataContext = this;
             LoadInputMappings();
-            StartWebSocketServer();
 
-           
-        
+
+   
+
+            // Initial QR generation
+            GenerateAndShowQrCode();
+
+            // When client pairs → add to device list + refresh QR
+            clientPairedHandler = () =>
+            {
+                Dispatcher.Invoke(() =>
+                {
+                    var playerId = $"Player{deviceCounter++}";
+                    connectedDevices.Add(new ConnectedDevice { PlayerId = playerId });
+                    GenerateAndShowQrCode();
+                });
+            };
+
+            ReceiverServer.OnClientPaired += () =>
+            {
+                Dispatcher.Invoke(() =>
+                {
+                    var playerId = $"Player{deviceCounter++}";
+                    connectedDevices.Add(new ConnectedDevice { PlayerId = playerId });
+                    GenerateAndShowQrCode();
+                });
+            };
+
+            ReceiverServer.OnClientDisconnected += (playerId) =>
+            {
+                Dispatcher.Invoke(() =>
+                {
+                    var device = connectedDevices.FirstOrDefault(d => d.PlayerId == playerId);
+                    if (device != null)
+                        connectedDevices.Remove(device);
+                });
+            };
+
+          
+
+
             InputProfiles.Add(new InputProfile { Id = 1 ,ProfileName = "FPS Profile", DateCreated = "2024-01-12", LastUpdated = "2024-05-01" });
             InputProfiles.Add(new InputProfile { Id = 2, ProfileName = "Racing Profile", DateCreated = "2024-02-15", LastUpdated = "2024-06-10" });
             InputProfiles.Add(new InputProfile { Id = 3, ProfileName = "Custom Profile", DateCreated = "2024-03-05", LastUpdated = "2024-07-01" });
@@ -329,108 +278,7 @@ namespace FYP
         }
 
         // WebSocket server setup
-        private void StartWebSocketServer()
-        {
-            try
-            {
-                FleckLog.Level = LogLevel.Info;
-                server = new WebSocketServer("ws://0.0.0.0:8181");
-
-                server.Start(socket =>
-                {
-                    socket.OnOpen = () =>
-                    {
-                        connectedClient = socket;
-                        Dispatcher.Invoke(() =>
-                        {
-                            QrStatusText.Text += "\nClient connected!";
-                        });
-                        Console.WriteLine("WebSocket client connected");
-                    };
-
-                    socket.OnClose = () =>
-                    {
-                        connectedClient = null;
-                        Dispatcher.Invoke(() =>
-                        {
-                            QrStatusText.Text += "\nClient disconnected.";
-                        });
-                        Console.WriteLine("WebSocket client disconnected");
-                    };
-
-                    socket.OnMessage = message =>
-                    {
-                        try
-                        {
-                            Console.WriteLine($"Received message: {message}");
-
-                            var inputs = JsonSerializer.Deserialize<List<InputPacket>>(message);
-
-                            foreach (var input in inputs)
-                            {
-
-                                string mappedAction = MapInputIdToAction(input.id);
-
-                                string log = $"Input: {input.id} - {input.state} | Mapped to: {mappedAction}";
-                                Console.WriteLine(log);
-
-                                Dispatcher.Invoke(() =>
-                                {
-                                    QrStatusText.Text += $"\n{log}";
-                                });
-
-                                // Map input ID to action using the loaded JSON mapping
-                                //string mappedAction = MapInputIdToAction(input.id);
-
-                                if (!string.IsNullOrEmpty(mappedAction))
-                                {
-                                    Console.WriteLine($"Executing action: {mappedAction}");
-                                    SimulateInput(mappedAction, input.state);
-                                }
-                                else
-                                {
-                                    Console.WriteLine($"No action mapped for input: {input.id}");
-                                }
-                            }
-                        }
-                        catch (JsonException jsonEx)
-                        {
-                            string errorMsg = $"JSON parsing error: {jsonEx.Message}";
-                            Console.WriteLine(errorMsg);
-                            Dispatcher.Invoke(() =>
-                            {
-                                QrStatusText.Text += $"\n{errorMsg}";
-                            });
-                        }
-                        catch (Exception ex)
-                        {
-                            string errorMsg = $"Error processing message: {ex.Message}";
-                            Console.WriteLine(errorMsg);
-                            Dispatcher.Invoke(() =>
-                            {
-                                QrStatusText.Text += $"\n{errorMsg}";
-                            });
-                        }
-                    };
-
-                    socket.OnError = exception =>
-                    {
-                        Console.WriteLine($"WebSocket error: {exception.Message}");
-                        Dispatcher.Invoke(() =>
-                        {
-                            QrStatusText.Text += $"\nWebSocket error: {exception.Message}";
-                        });
-                    };
-                });
-
-                Console.WriteLine("WebSocket server started on ws://0.0.0.0:8181");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Failed to start WebSocket server: {ex.Message}");
-                Console.WriteLine($"Server start error: {ex.Message}");
-            }
-        }
+      
         private async void SaveProfileButton_Click(object sender, RoutedEventArgs e)
         {
             var inputProfile = InputProfiles.FirstOrDefault(p => p.ProfileName == "FPS Profile");
@@ -486,12 +334,7 @@ private void UpdateDevice_Click(object sender, RoutedEventArgs e)
         {
             // Implementation for tab control selection change if needed
         }
-        DeviceProfile profile = new DeviceProfile
-        {
-            ProfileName = "FPS Profile",
-            DateCreated = DateTime.Now.ToString("yyyy-MM-dd"),
-            // etc.
-        };
+        
         public List<string> SelectedProfileOptions = new(){
         "Keyboard n Mouse",
         "Xbox emulation",

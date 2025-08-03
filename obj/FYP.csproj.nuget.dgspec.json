@@ -54,6 +54,10 @@
               "target": "Package",
               "version": "[1.2.0, )"
             },
+            "InputSimulatorPlus": {
+              "target": "Package",
+              "version": "[1.0.7, )"
+            },
             "MaterialDesignColors": {
               "target": "Package",
               "version": "[5.2.1, )"
@@ -65,10 +69,6 @@
             "QRCoder": {
               "target": "Package",
               "version": "[1.6.0, )"
-            },
-            "WindowsInput": {
-              "target": "Package",
-              "version": "[6.4.1, )"
             }
           },
           "imports": [

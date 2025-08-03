@@ -11,6 +11,19 @@
           "lib/netcoreapp2.0/Fleck.dll": {}
         }
       },
+      "InputSimulatorPlus/1.0.7": {
+        "type": "package",
+        "compile": {
+          "lib/net20/WindowsInput.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/net20/WindowsInput.dll": {
+            "related": ".pdb;.xml"
+          }
+        }
+      },
       "MaterialDesignColors/5.2.1": {
         "type": "package",
         "compile": {
@@ -122,25 +135,6 @@
             "rid": "win"
           }
         }
-      },
-      "WindowsInput/6.4.1": {
-        "type": "package",
-        "compile": {
-          "lib/net6.0-windows7.0/WindowsInput.dll": {}
-        },
-        "runtime": {
-          "lib/net6.0-windows7.0/WindowsInput.dll": {}
-        },
-        "frameworkReferences": [
-          "Microsoft.WindowsDesktop.App.WPF"
-        ],
-        "contentFiles": {
-          "contentFiles/any/net6.0-windows7.0/.nuget/mouse-keyboard-hook-logo.png": {
-            "buildAction": "Content",
-            "codeLanguage": "any",
-            "copyToOutput": false
-          }
-        }
       }
     }
   },
@@ -158,6 +152,20 @@
         "lib/net45/Fleck.dll",
         "lib/netcoreapp2.0/Fleck.dll",
         "lib/netstandard2.0/Fleck.dll"
+      ]
+    },
+    "InputSimulatorPlus/1.0.7": {
+      "sha512": "mOJt32qhvp3knYB8EEOh6/9cwZEwQV2BRD3DGZZ8guFg8vOt+xq6QGEt5eFjTkG+VWgVDMPVdCAIE4gnfab+3Q==",
+      "type": "package",
+      "path": "inputsimulatorplus/1.0.7",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "inputsimulatorplus.1.0.7.nupkg.sha512",
+        "inputsimulatorplus.nuspec",
+        "lib/net20/WindowsInput.dll",
+        "lib/net20/WindowsInput.pdb",
+        "lib/net20/WindowsInput.xml"
       ]
     },
     "MaterialDesignColors/5.2.1": {
@@ -335,36 +343,15 @@
         "system.drawing.common.nuspec",
         "useSharedDesignerContext.txt"
       ]
-    },
-    "WindowsInput/6.4.1": {
-      "sha512": "wfg9uu5xDvBcaNqvR1ZTFQqBf4bKzkxdd5WviTZPy4cAywEzLzofuYswZB3nGIEnnlwGLBGSgrNOEZH/w8JI9w==",
-      "type": "package",
-      "path": "windowsinput/6.4.1",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "LICENSE.txt",
-        "README.md",
-        "content/.nuget/mouse-keyboard-hook-logo.png",
-        "contentFiles/any/net461/.nuget/mouse-keyboard-hook-logo.png",
-        "contentFiles/any/net6.0-windows7.0/.nuget/mouse-keyboard-hook-logo.png",
-        "contentFiles/any/netcoreapp3.1/.nuget/mouse-keyboard-hook-logo.png",
-        "lib/net461/WindowsInput.dll",
-        "lib/net6.0-windows7.0/WindowsInput.dll",
-        "lib/netcoreapp3.1/WindowsInput.dll",
-        "mouse-keyboard-hook-logo.png",
-        "windowsinput.6.4.1.nupkg.sha512",
-        "windowsinput.nuspec"
-      ]
     }
   },
   "projectFileDependencyGroups": {
     "net8.0-windows7.0": [
       "Fleck >= 1.2.0",
+      "InputSimulatorPlus >= 1.0.7",
       "MaterialDesignColors >= 5.2.1",
       "MaterialDesignThemes >= 5.2.1",
-      "QRCoder >= 1.6.0",
-      "WindowsInput >= 6.4.1"
+      "QRCoder >= 1.6.0"
     ]
   },
   "packageFolders": {
@@ -421,6 +408,10 @@
             "target": "Package",
             "version": "[1.2.0, )"
           },
+          "InputSimulatorPlus": {
+            "target": "Package",
+            "version": "[1.0.7, )"
+          },
           "MaterialDesignColors": {
             "target": "Package",
             "version": "[5.2.1, )"
@@ -432,10 +423,6 @@
           "QRCoder": {
             "target": "Package",
             "version": "[1.6.0, )"
-          },
-          "WindowsInput": {
-            "target": "Package",
-            "version": "[6.4.1, )"
           }
         },
         "imports": [
@@ -460,5 +447,17 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.302/PortableRuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'InputSimulatorPlus 1.0.7' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net8.0-windows7.0'. This package may not be fully compatible with your project.",
+      "libraryId": "InputSimulatorPlus",
+      "targetGraphs": [
+        "net8.0-windows7.0"
+      ]
+    }
+  ]
 }
