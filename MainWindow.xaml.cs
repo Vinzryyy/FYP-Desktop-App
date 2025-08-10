@@ -137,17 +137,7 @@ namespace FYP
             var window = new InputProfileWindow();
             window.Show();
         }
-        private BitmapImage ConvertToBitmapImage(byte[] imageData)
-        {
-            var bi = new BitmapImage();
-            using var ms = new MemoryStream(imageData);
-            bi.BeginInit();
-            bi.CacheOption = BitmapCacheOption.OnLoad;
-            bi.StreamSource = ms;
-            bi.EndInit();
-            bi.Freeze();
-            return bi;
-        }
+    
         protected override void OnClosed(EventArgs e)
         {
             base.OnClosed(e);
@@ -158,12 +148,21 @@ namespace FYP
             public string PlayerId { get; set; } = "";
             public string DisplayName => $"Connected Device {PlayerId}";
         }
-      
-      
-        private void GenerateNewQrCode_Click(object sender, RoutedEventArgs e)
+
+
+
+        private string GetLocalIPAddress()
         {
-            GenerateAndShowQrCode();
+            foreach (var ip in System.Net.Dns.GetHostEntry(System.Net.Dns.GetHostName()).AddressList)
+            {
+                if (ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+                {
+                    return ip.ToString();
+                }
+            }
+            throw new Exception("No network adapters with an IPv4 address found.");
         }
+
         private void GenerateAndShowQrCode()
         {
             // Generatae a new token
@@ -190,34 +189,19 @@ namespace FYP
             ReceiverServer.AddToken(token, nextPlayerId);
         }
 
-        // Method to get local IP address
-        private string GetLocalIPAddress()
+        private BitmapImage ConvertToBitmapImage(byte[] imageData)
         {
-            foreach (var ip in System.Net.Dns.GetHostEntry(System.Net.Dns.GetHostName()).AddressList)
-            {
-                if (ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
-                {
-                    return ip.ToString();
-                }
-            }
-            throw new Exception("No network adapters with an IPv4 address found.");
+            var bi = new BitmapImage();
+            using var ms = new MemoryStream(imageData);
+            bi.BeginInit();
+            bi.CacheOption = BitmapCacheOption.OnLoad;
+            bi.StreamSource = ms;
+            bi.EndInit();
+            bi.Freeze();
+            return bi;
         }
 
-        private BitmapImage ConvertBitmapToBitmapImage(Bitmap bitmap)
-        {
-            using (MemoryStream memory = new MemoryStream())
-            {
-                bitmap.Save(memory, System.Drawing.Imaging.ImageFormat.Png);
-                memory.Position = 0;
 
-                BitmapImage bitmapImage = new BitmapImage();
-                bitmapImage.BeginInit();
-                bitmapImage.StreamSource = memory;
-                bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-                bitmapImage.EndInit();
-                return bitmapImage;
-            }
-        }
 
 
         public ObservableCollection<DeviceProfile> Controllers { get; set; } = new();
@@ -234,7 +218,7 @@ namespace FYP
             // Initialize FirebaseProfiles collection
             FirebaseProfiles = new ObservableCollection<DeviceProfile>();
 
-
+            ConnectedDevicesGrid.ItemsSource = connectedDevices;
             // Initial QR generation
             GenerateAndShowQrCode();
 
@@ -269,7 +253,12 @@ namespace FYP
                 });
             };
 
-          
+            ReceiverServer.OnLog += (msg) =>
+            {
+                Dispatcher.Invoke(() => Log(msg));
+            };
+
+
 
 
             InputProfiles.Add(new InputProfile { Id = 1 ,ProfileName = "FPS Profile", DateCreated = "2024-01-12", LastUpdated = "2024-05-01" });
@@ -281,7 +270,10 @@ namespace FYP
             // ✅ Now populate controllers
         }
 
-        // WebSocket server setup
+        private void GenerateNewQrCode_Click(object sender, RoutedEventArgs e)
+        {
+            GenerateAndShowQrCode();
+        }
 
         private async void LoadFirebaseProfiles_Click(object sender, RoutedEventArgs e)
         {
@@ -373,29 +365,29 @@ namespace FYP
         }
 
         private void DeleteDevice_Click(object sender, RoutedEventArgs e)
-{
-    var button = sender as Button;
-    if (button?.DataContext is DeviceProfile profileToDelete)
-    {
-        if (MessageBox.Show($"Are you sure you want to delete '{profileToDelete.DeviceName}'?", "Confirm Delete", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
         {
-            Controllers.Remove(profileToDelete);
+            var button = sender as Button;
+            if (button?.DataContext is DeviceProfile profileToDelete)
+            {
+                if (MessageBox.Show($"Are you sure you want to delete '{profileToDelete.DeviceName}'?", "Confirm Delete", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                {
+                    Controllers.Remove(profileToDelete);
+                }
+            }
         }
-    }
-}
 
-private void UpdateDevice_Click(object sender, RoutedEventArgs e)
-{
-    var button = sender as Button;
-    if (button?.DataContext is DeviceProfile deviceToUpdate)
-    {
-        // Example update logic
-        deviceToUpdate.LastUpdated = DateTime.Now.ToString("yyyy-MM-dd");
-        deviceToUpdate.NeedsUpdate = false;
+        private void UpdateDevice_Click(object sender, RoutedEventArgs e)
+        {
+            var button = sender as Button;
+            if (button?.DataContext is DeviceProfile deviceToUpdate)
+            {
+                // Example update logic
+                deviceToUpdate.LastUpdated = DateTime.Now.ToString("yyyy-MM-dd");
+                deviceToUpdate.NeedsUpdate = false;
 
-        MessageBox.Show($"'{deviceToUpdate.DeviceName}' updated successfully.", "Update");
-    }
-}
+                MessageBox.Show($"'{deviceToUpdate.DeviceName}' updated successfully.", "Update");
+            }
+        }
 
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -408,19 +400,13 @@ private void UpdateDevice_Click(object sender, RoutedEventArgs e)
         "DS4 emulation"
             };
 
-        // Cleanup when window is closing
-        protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
+     
+        private void Log(string message)
         {
-            try
-            {
-                server?.Dispose();
-                Console.WriteLine("WebSocket server disposed");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error disposing server: {ex.Message}");
-            }
-            base.OnClosing(e);
+            LogListBox.Items.Add($"[{DateTime.Now:HH:mm:ss}] {message}");
+
+            // Auto-scroll to the newest item
+            LogListBox.ScrollIntoView(LogListBox.Items[LogListBox.Items.Count - 1]);
         }
     }
 
