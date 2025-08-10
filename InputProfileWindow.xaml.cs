@@ -67,5 +67,10 @@ namespace FYP
             this.DialogResult = true;
             this.Close();
         }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }

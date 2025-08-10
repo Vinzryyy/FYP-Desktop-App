@@ -59,12 +59,17 @@ namespace ReceiverApp
 
                 socket.OnClose = () =>
                 {
+                    string reason = socket.ConnectionInfo.Headers.ContainsKey("Sec-WebSocket-Protocol")
+                        ? socket.ConnectionInfo.Headers["Sec-WebSocket-Protocol"]
+                        : "No reason header";
+                    Console.WriteLine($"[DISCONNECT] {activePlayers.GetValueOrDefault(socket, "Unknown")} closed. Reason: {reason}");
                     if (activePlayers.Remove(socket, out var playerId))
                     {
-                        Console.WriteLine($"{playerId} disconnected.");
                         OnClientDisconnected?.Invoke(playerId);
                     }
                 };
+
+
 
                 socket.OnMessage = message =>
                 {
@@ -109,6 +114,16 @@ namespace ReceiverApp
                         Console.WriteLine("Unpaired connection sent input. Ignored.");
                     }
                 };
+                var pingTimer = new System.Timers.Timer(10000);
+                pingTimer.Elapsed += (s, e) =>
+                {
+                    foreach (var client in activePlayers.Keys)
+                    {
+                        if (client.IsAvailable)
+                            client.Send("ping");
+                    }
+                };
+                pingTimer.Start();
             });
             Console.WriteLine($"WebSocket server started on {serverAddress}");
         }

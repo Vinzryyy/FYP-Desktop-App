@@ -63,7 +63,6 @@ C:\Users\User\source\repos\Vinzryyy\FYP-Desktop-App\obj\Debug\net8.0-windows\FYP
 C:\Users\User\source\repos\Vinzryyy\FYP-Desktop-App\obj\Debug\net8.0-windows\InputProfileWindow.baml
 C:\Users\User\source\repos\Vinzryyy\FYP-Desktop-App\obj\Debug\net8.0-windows\UpdateProfileWindow.baml
 C:\Users\User\source\repos\Vinzryyy\FYP-Desktop-App\obj\Debug\net8.0-windows\InputProfileWindow.g.cs
-C:\Users\User\source\repos\Vinzryyy\FYP-Desktop-App\obj\Debug\net8.0-windows\MainWindow.g.cs
 C:\Users\User\source\repos\Vinzryyy\FYP-Desktop-App\obj\Debug\net8.0-windows\ProfileSelectorWindow.g.cs
 C:\Users\User\source\repos\Vinzryyy\FYP-Desktop-App\obj\Debug\net8.0-windows\UpdateProfileWindow.g.cs
 C:\Users\User\source\repos\Vinzryyy\FYP-Desktop-App\obj\Debug\net8.0-windows\App.g.cs
@@ -81,7 +80,6 @@ C:\Users\User\source\repos\Vinzryyy\FYP-Desktop-App\bin\Debug\net8.0-windows\Mat
 C:\Users\User\source\repos\Vinzryyy\FYP-Desktop-App\bin\Debug\net8.0-windows\MaterialDesignThemes.Wpf.dll
 C:\Users\User\source\repos\Vinzryyy\FYP-Desktop-App\bin\Debug\net8.0-windows\Microsoft.Xaml.Behaviors.dll
 C:\Users\User\source\repos\Vinzryyy\FYP-Desktop-App\bin\Debug\net8.0-windows\QRCoder.dll
-C:\Users\User\source\repos\Vinzryyy\FYP-Desktop-App\obj\Debug\net8.0-windows\MainWindow.baml
 C:\Users\User\source\repos\Vinzryyy\FYP-Desktop-App\obj\Debug\net8.0-windows\ProfileSelectorWindow.baml
 C:\Users\User\source\repos\Vinzryyy\FYP-Desktop-App\obj\Debug\net8.0-windows\FYP.g.resources
 C:\Users\User\source\repos\Vinzryyy\FYP-Desktop-App\obj\Debug\net8.0-windows\FYP.GeneratedMSBuildEditorConfig.editorconfig
@@ -95,3 +93,5 @@ C:\Users\User\source\repos\Vinzryyy\FYP-Desktop-App\obj\Debug\net8.0-windows\ref
 C:\Users\User\source\repos\Vinzryyy\FYP-Desktop-App\obj\Debug\net8.0-windows\FYP.pdb
 C:\Users\User\source\repos\Vinzryyy\FYP-Desktop-App\obj\Debug\net8.0-windows\FYP.genruntimeconfig.cache
 C:\Users\User\source\repos\Vinzryyy\FYP-Desktop-App\obj\Debug\net8.0-windows\ref\FYP.dll
+C:\Users\User\source\repos\Vinzryyy\FYP-Desktop-App\obj\Debug\net8.0-windows\MainWindow.g.cs
+C:\Users\User\source\repos\Vinzryyy\FYP-Desktop-App\obj\Debug\net8.0-windows\MainWindow.baml

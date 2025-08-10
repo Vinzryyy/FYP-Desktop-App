@@ -95,7 +95,40 @@
                         </Grid>
                     </TabItem>
 
-                <!-- Profiles Tab -->
+                    <!-- Add this TabItem to your existing TabControl in MainWindow.xaml -->
+                    <TabItem Header="Firebase Profiles">
+                        <Grid Margin="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <!-- Profile List -->
+                            <DataGrid x:Name="FirebaseProfilesGrid" Grid.Row="1" 
+                  AutoGenerateColumns="False" 
+                  CanUserAddRows="False"
+                  ItemsSource="{Binding FirebaseProfiles}">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Device Name" Binding="{Binding DeviceName}" Width="*"/>
+                                    <DataGridTextColumn Header="Profile Name" Binding="{Binding ProfileName}" Width="*"/>
+                                    <DataGridTextColumn Header="Input Profile" Binding="{Binding SelectedProfile.ProfileName}" Width="*"/>
+                                    <DataGridTextColumn Header="Profile Number" Binding="{Binding SelectedProfileNum}" Width="*"/>
+                                    <DataGridTextColumn Header="Last Updated" Binding="{Binding LastUpdated}" Width="*"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                            
+
+                            <!-- Action Buttons -->
+                            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+                                <Button Content="Load Profiles" Width="120" Margin="5" Click="LoadFirebaseProfiles_Click"/>
+                                <Button Content="Save Profile" Width="120" Margin="5" Click="SaveProfileButton_Click"/>
+                                <Button Content="Delete Profile" Width="120" Margin="5" Click="DeleteFirebaseProfile_Click"/>
+                            </StackPanel>
+                        </Grid>
+                    </TabItem>
+
+                    <!-- Profiles Tab -->
                     <TabItem Header="Input Profile">
                         <Grid Margin="10">
                             <Image Source="/Image/Profilebackground.png" Stretch="Fill" Panel.ZIndex="0" Opacity="0.3"/>

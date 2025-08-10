@@ -218,8 +218,11 @@ namespace FYP
                 return bitmapImage;
             }
         }
+
+
         public ObservableCollection<DeviceProfile> Controllers { get; set; } = new();
         public ObservableCollection<InputProfile> InputProfiles { get; set; } = new();
+        public ObservableCollection<DeviceProfile> FirebaseProfiles { get; set; } = new();
 
         // CONSTRUCTOR
         public MainWindow()
@@ -228,8 +231,9 @@ namespace FYP
             this.DataContext = this;
             LoadInputMappings();
 
+            // Initialize FirebaseProfiles collection
+            FirebaseProfiles = new ObservableCollection<DeviceProfile>();
 
-   
 
             // Initial QR generation
             GenerateAndShowQrCode();
@@ -278,33 +282,96 @@ namespace FYP
         }
 
         // WebSocket server setup
-      
+
+        private async void LoadFirebaseProfiles_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var firebase = new FirebaseService();
+                var profiles = await firebase.LoadProfilesAsync(InputProfiles); // Pass InputProfiles collection
+
+                FirebaseProfiles.Clear();
+                foreach (var profile in profiles)
+                {
+                    FirebaseProfiles.Add(profile);
+                }
+
+                MessageBox.Show($"Loaded {profiles.Count} profiles from Firebase.", "Success");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Failed to load profiles: {ex.Message}", "Error");
+            }
+        }
+
+        private async void DeleteFirebaseProfile_Click(object sender, RoutedEventArgs e)
+        {
+            if (FirebaseProfilesGrid.SelectedItem is DeviceProfile selectedProfile)
+            {
+                if (MessageBox.Show($"Delete profile '{selectedProfile.ProfileName}'?",
+                    "Confirm Delete", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                {
+                    try
+                    {
+                        var firebase = new FirebaseService();
+                        await firebase.DeleteProfileAsync(selectedProfile);
+                        FirebaseProfiles.Remove(selectedProfile);
+                        MessageBox.Show("Profile deleted successfully.", "Success");
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Failed to delete profile: {ex.Message}", "Error");
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please select a profile to delete.", "Warning");
+            }
+        }
+
         private async void SaveProfileButton_Click(object sender, RoutedEventArgs e)
         {
-            var inputProfile = InputProfiles.FirstOrDefault(p => p.ProfileName == "FPS Profile");
+            var firebase = new FirebaseService(); // Declare ONCE at the start
 
+            // 1. Try to save currently connected device
+            var currentDevice = Controllers.FirstOrDefault(c => c.IsLinked);
+            if (currentDevice != null)
+            {
+                currentDevice.LastUpdated = DateTime.Now.ToString("yyyy-MM-dd");
+                currentDevice.NeedsUpdate = false;
+
+                if (await firebase.SaveProfileAsync(currentDevice))
+                {
+                    MessageBox.Show($"Saved current profile for {currentDevice.DeviceName}");
+                    return;
+                }
+            }
+
+            // 2. Fallback to test profile
+            var inputProfile = InputProfiles.FirstOrDefault(p => p.ProfileName == "FPS Profile");
             if (inputProfile == null)
             {
-                MessageBox.Show("FPS Profile not found in InputProfiles.");
+                MessageBox.Show("No connected device and FPS Profile not found");
                 return;
             }
 
-            var profile = new DeviceProfile
+            await firebase.SaveProfileAsync(new DeviceProfile
             {
                 ProfileName = inputProfile.ProfileName,
                 DateCreated = DateTime.Now.ToString("yyyy-MM-dd"),
                 LastUpdated = DateTime.Now.ToString("yyyy-MM-dd"),
                 DeviceName = "Alice iPhone 12",
                 Status = "Linked",
-                SelectedProfile = inputProfile, 
-                SelectedProfileNum = "1",
+                SelectedProfile = inputProfile,
+                SelectedProfileNum = "DS4 emulation",
                 IsLinked = true,
                 NeedsUpdate = false
-            };
+            });
 
-            var firebase = new FirebaseService();
-            await firebase.SaveProfileAsync(profile);
+            MessageBox.Show("Saved test profile");
         }
+
         private void DeleteDevice_Click(object sender, RoutedEventArgs e)
 {
     var button = sender as Button;
