@@ -101,9 +101,16 @@ namespace FYP
 
             if (result == true && selector.SelectedProfile != null)
             {
-                var updateWindow = new UpdateProfileWindow(selector.SelectedProfile)
+                var updateWindow = new UpdateProfileWindow(new DeviceProfile
                 {
-                    Owner = this
+                    Id = selector.SelectedProfile.Id,
+                    ProfileName = selector.SelectedProfile.ProfileName,
+                    DateCreated = selector.SelectedProfile.DateCreated,
+                    LastUpdated = selector.SelectedProfile.LastUpdated,
+                    Mappings = selector.SelectedProfile.Mappings
+                })
+                {
+                    Mappings = new ObservableCollection<KeyMapping>(selector.SelectedProfile.Mappings.Cast<KeyMapping>())
                 };
 
                 if (updateWindow.ShowDialog() == true)

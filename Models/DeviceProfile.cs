@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text.Json.Serialization;
@@ -21,9 +22,9 @@ namespace FYP.Models
         // Read-only property for display
         public string ProfileTypeDisplay => SelectedProfileNum switch
         {
-            "1" => "Keyboard n Mouse",
-            "2" => "Xbox emulation",
-            "3" => "DS4 emulation",
+            "1" => "Profile 1",
+            "2" => "Profile 2",
+            "3" => "Profile 3",
             _ => "Unknown"
         };
 
@@ -90,6 +91,12 @@ namespace FYP.Models
         {
             get => _needsUpdate;
             set { _needsUpdate = value; OnPropertyChanged(); }
+        }
+        private ObservableCollection<KeyMapping> _mappings = new ObservableCollection<KeyMapping>();
+        public ObservableCollection<KeyMapping> Mappings
+        {
+            get => _mappings;
+            set { _mappings = value; OnPropertyChanged(); }
         }
 
         [JsonIgnore]

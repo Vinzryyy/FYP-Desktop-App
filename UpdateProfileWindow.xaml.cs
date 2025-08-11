@@ -1,72 +1,67 @@
 ﻿using FYP.Models;
-using QRCoder;
-using System.Drawing;
-using System.IO;
-using System.Text;
+using System.Collections.ObjectModel;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-
 
 namespace FYP
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    
     public partial class UpdateProfileWindow : Window
     {
-        
-        private InputProfile _profile;
+        public ObservableCollection<KeyMapping> Mappings { get; set; }
+        private DeviceProfile _profile;
 
-        public UpdateProfileWindow(InputProfile profile)
+        public UpdateProfileWindow(DeviceProfile profileToEdit)
         {
             InitializeComponent();
-            _profile = profile;
 
-            // Populate fields with existing data
-            if (_profile != null)
+            _profile = profileToEdit;
+
+            // Bind the profile's mappings
+            Mappings = _profile.Mappings ?? new ObservableCollection<KeyMapping>();
+            txtMappings.ItemsSource = Mappings;
+
+            // Load other profile details
+            txtProfileName.Text = _profile.ProfileName;
+        }
+
+        private void AddMapping_Click(object sender, RoutedEventArgs e)
+        {
+            Mappings.Add(new KeyMapping { ActionName = "NewAction", Key = "" });
+        }
+
+        private void RemoveMapping_Click(object sender, RoutedEventArgs e)
+        {
+            if (txtMappings.SelectedItem is KeyMapping selected)
             {
-                ProfileNameTextBox.Text = _profile.ProfileName;
-                // You can load other settings here as needed
+                Mappings.Remove(selected);
             }
         }
+
         private void Save_Click(object sender, RoutedEventArgs e)
         {
-            if (_profile == null)
-            {
-                MessageBox.Show("Profile not found.");
-                return;
-            }
+            string profileName = txtProfileName.Text.Trim();
 
-            string updatedName = ProfileNameTextBox.Text.Trim();
-            if (string.IsNullOrEmpty(updatedName))
+            if (string.IsNullOrEmpty(profileName))
             {
                 MessageBox.Show("Profile name cannot be empty.");
                 return;
             }
 
-            _profile.ProfileName = updatedName;
-            _profile.LastUpdated = DateTime.Now.ToString("yyyy-MM-dd");
+            // Update the profile object
+            _profile.ProfileName = profileName;
+            _profile.Mappings = Mappings;
 
-            MessageBox.Show("Profile updated.");
-            this.DialogResult = true;
-            this.Close();
+            // TODO: Save _profile to database or JSON file here
+
+            MessageBox.Show($"Profile '{_profile.ProfileName}' updated with {Mappings.Count} mappings.");
+            DialogResult = true;
+            Close();
         }
+
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
-        }
-
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
+            DialogResult = false;
+            Close();
         }
     }
+
 }

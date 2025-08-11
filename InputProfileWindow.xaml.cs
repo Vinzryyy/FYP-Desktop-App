@@ -1,76 +1,122 @@
-﻿using FYP.Models;
-using QRCoder;
-using System.Drawing;
-using System.IO;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Net.Sockets;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-
+using FYP.Models;
 
 namespace FYP
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    
     public partial class InputProfileWindow : Window
     {
-        private void Cancel_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
-        public InputProfile NewProfile {
-            get; private set;
-        }
-        private InputProfile _existingProfile;
-        private bool _isEditMode = false;
+        private MappingReceiver receiver;
+        private CancellationTokenSource cts = new();
+        public InputProfile NewProfile { get; private set; }
 
-        public InputProfileWindow(InputProfile profileToEdit = null)
+        public InputProfileWindow()
         {
             InitializeComponent();
-
-            if (profileToEdit != null)
-            {
-                _existingProfile = profileToEdit;
-                _isEditMode = true;
-
-                // Load values into UI
-                ProfileNameTextBox.Text = _existingProfile.ProfileName;
-            }
+            StartListening();
         }
-        private void Save_Click(object sender, RoutedEventArgs e)
+
+        private void StartListening()
         {
-            string profileName = ProfileNameTextBox.Text.Trim();
-
-            if (string.IsNullOrEmpty(profileName))
+            receiver = new MappingReceiver();
+            receiver.OnMappingReceived += mapping =>
             {
-                MessageBox.Show("Please enter a profile name.", "Missing Info", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
-
-            string dateNow = DateTime.Now.ToString("yyyy-MM-dd");
-
-            NewProfile = new InputProfile
-            {
-                ProfileName = profileName,
-                DateCreated = dateNow,
-                LastUpdated = dateNow
+                Dispatcher.Invoke(() =>
+                {
+                    txtMappings.Items.Add(new KeyMapping { ActionName = "DefaultAction", Key = mapping });
+                });
             };
 
-            this.DialogResult = true;
-            this.Close();
+            _ = receiver.StartListeningAsync(5005, cts.Token);
         }
 
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void AddMapping_Click(object sender, RoutedEventArgs e)
         {
+            // Add an empty mapping for the user to fill in
+            txtMappings.Items.Add(new KeyMapping { ActionName = "NewAction", Key = "" });
+        }
 
+        private void RemoveMapping_Click(object sender, RoutedEventArgs e)
+        {
+            if (txtMappings.SelectedItem is KeyMapping selectedMapping)
+            {
+                txtMappings.Items.Remove(selectedMapping);
+            }
+        }
+
+
+        private void Save_Click(object sender, RoutedEventArgs e)
+        {
+            string profileName = txtProfileName.Text;
+
+            var profile = new InputProfile
+            {
+                ProfileName = profileName,
+                DateCreated = DateTime.Now.ToString("yyyy-MM-dd "),
+                LastUpdated = DateTime.Now.ToString("yyyy-MM-dd "),
+                Mappings = new ObservableCollection<FYP.Models.KeyMapping>() // Explicitly specify the correct KeyMapping type
+            };
+
+            foreach (FYP.Models.KeyMapping mapping in txtMappings.Items) // Ensure the correct type is used here
+            {
+                if (!string.IsNullOrWhiteSpace(mapping?.ActionName) && !string.IsNullOrWhiteSpace(mapping?.Key))
+                {
+                    profile.Mappings.Add(mapping);
+                }
+            }
+
+            // Set NewProfile so MainWindow can read it
+            NewProfile = profile;
+            DialogResult = true; // So ShowDialog() returns true
+            Close();
+        }
+
+
+        private void Cancel_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            cts.Cancel();
+            receiver?.Dispose();
+            base.OnClosed(e);
+        }
+    }
+
+
+    public class MappingReceiver : IDisposable
+    {
+        public event Action<string> OnMappingReceived;
+        private UdpClient udpClient;
+
+        public async Task StartListeningAsync(int port, CancellationToken token)
+        {
+            udpClient = new UdpClient(port);
+
+            try
+            {
+                while (!token.IsCancellationRequested)
+                {
+                    var result = await udpClient.ReceiveAsync();
+                    string mapping = Encoding.UTF8.GetString(result.Buffer);
+                    OnMappingReceived?.Invoke(mapping);
+                }
+            }
+            catch (ObjectDisposedException) { }
+            catch (SocketException) { }
+        }
+
+        public void Dispose()
+        {
+            udpClient?.Close();
+            udpClient?.Dispose();
         }
     }
 }
